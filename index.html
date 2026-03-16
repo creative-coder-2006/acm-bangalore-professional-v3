@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACM Bangalore Professional Chapter</title>
+  <meta name="description" content="Building a local community of computing professionals in Bangalore, India. Join the ACM Bangalore Professional Chapter for networking, knowledge sharing, and career development." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ---- HERO ---- */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/image3.png');
+      background-size: cover;
+      background-position: center 30%;
+      filter: brightness(0.38);
+      transform: scale(1.04);
+      transition: transform 8s ease;
+    }
+    .hero__bg.loaded { transform: scale(1); }
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(13,27,42,0.85) 0%,
+        rgba(0,80,140,0.55) 60%,
+        rgba(13,27,42,0.75) 100%
+      );
+    }
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 120px 0 80px;
+      max-width: 680px;
+    }
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+    .hero__eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px; height: 2px;
+      background: var(--blue);
+    }
+    .hero__title {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    .hero__title .highlight {
+      color: #4db8ff;
+    }
+    .hero__subtitle {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.72);
+      margin-top: 18px;
+      line-height: 1.7;
+      max-width: 520px;
+    }
+    .hero__actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+    .hero__scroll {
+      position: absolute;
+      bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.45);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ---- MISSION STRIP ---- */
+    .mission-strip {
+      background: var(--white);
+      padding: 72px 0;
+    }
+    .mission-strip__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .mission-strip__text h2 {
+      color: var(--navy);
+    }
+    .mission-strip__text p {
+      margin-top: 16px;
+      font-size: 1rem;
+    }
+    .mission-strip__text p + p { margin-top: 12px; }
+    .mission-strip__stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .mission-strip__cta { margin-top: 28px; }
+
+    /* ---- UPCOMING EVENT ---- */
+    .upcoming-event__card {
+      background: var(--white);
+      border-radius: 18px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+    }
+    .upcoming-event__sidebar {
+      background: linear-gradient(160deg, var(--navy) 0%, #1a3a5e 100%);
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .upcoming-event__tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.85);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+    .upcoming-event__date-big {
+      color: var(--white);
+    }
+    .upcoming-event__date-big .day {
+      font-size: 4.5rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .upcoming-event__date-big .month-year {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      opacity: 0.75;
+      text-transform: uppercase;
+    }
+    .upcoming-event__time-badge {
+      background: rgba(0,115,183,0.3);
+      border: 1px solid rgba(0,115,183,0.5);
+      color: rgba(255,255,255,0.85);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-top: 24px;
+    }
+    .upcoming-event__body { padding: 40px; }
+    .upcoming-event__body h3 {
+      font-size: 1.5rem;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+    .upcoming-event__details {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 22px;
+    }
+    .upcoming-event__detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.9rem;
+    }
+    .upcoming-event__detail .icon {
+      width: 34px; height: 34px;
+      background: var(--blue-light);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--blue);
+    }
+    .upcoming-event__detail .label {
+      font-size: 0.75rem;
+      color: var(--gray-600);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+    .upcoming-event__detail .value {
+      color: var(--gray-900);
+      font-weight: 500;
+      font-size: 0.92rem;
+    }
+    .upcoming-event__actions { display: flex; gap: 12px; margin-top: 28px; }
+
+    /* ---- RECENT ACTIVITY ---- */
+    .activity-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .activity-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 1/1;
+      cursor: pointer;
+    }
+    .activity-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .activity-item:hover img { transform: scale(1.05); }
+    .activity-item__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13,27,42,0.7) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .activity-item:hover .activity-item__overlay { opacity: 1; }
+
+    @media (max-width: 900px) {
+      .mission-strip__inner { grid-template-columns: 1fr; gap: 40px; }
+      .upcoming-event__card { grid-template-columns: 1fr; }
+      .upcoming-event__sidebar { padding: 32px; }
+      .activity-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .mission-strip__stats { grid-template-columns: 1fr 1fr; }
+      .activity-grid { grid-template-columns: 1fr; }
+      .upcoming-event__body { padding: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAVIGATION ============ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">
+        <img src="assets/image1.png" alt="ACM Bangalore Chapter Logo" class="nav__logo" />
+        
+        <div class="nav__name">
+          ACM Bangalore
+          <span>Professional Chapter</span>
+        </div>
+      </a>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="spotlight.html">Spotlight</a></li>
+        <li><a href="join.html" class="btn-join">Join</a></li>
+      </ul>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero__bg" id="heroBg"></div>
+    <div class="hero__overlay"></div>
+    <div class="container">
+      <div class="hero__content">
+        <div class="hero__eyebrow">
+          <span>Bangalore, India</span>
+        </div>
+        <h1 class="hero__title">
+          ACM Professional Chapter,<br>
+          <span class="highlight">Bangalore</span>
+        </h1>
+        <p class="hero__subtitle">
+          Building a local community of computing professionals —
+          connecting academia, industry, and research to shape the future of computing in India's tech hub.
+        </p>
+        <div class="hero__actions">
+          <a href="join.html" class="btn btn--primary btn--lg">Join Us</a>
+          <a href="events.html" class="btn btn--outline btn--lg">View Events</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      Scroll
+    </div>
+  </section>
+
+  <!-- ============ MISSION STRIP ============ -->
+  <section class="mission-strip">
+    <div class="container">
+      <div class="mission-strip__inner">
+        <div class="mission-strip__text">
+          <span class="section-label">Our Mission</span>
+          <h2>Fostering the Local Computing Community</h2>
+          <p>
+            The ACM Bangalore Professional Chapter is dedicated to fostering a vibrant, inclusive community of computing professionals by providing opportunities for networking, knowledge sharing, and dialogue across academia, industry, and research.
+          </p>
+          <p>
+            We bridge the gap between academia and industry — supporting professional growth through specialized seminars, technical workshops, and career advancement resources.
+          </p>
+          <div class="mission-strip__cta">
+            <a href="about.html" class="btn btn--outline-blue">Learn More About Us</a>
+          </div>
+        </div>
+        <div class="mission-strip__stats">
+          <div class="stat-card">
+            <div class="stat-card__number">500+</div>
+            <div class="stat-card__label">Active Members</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__number">50+</div>
+            <div class="stat-card__label">Yearly Events</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__number">10+</div>
+            <div class="stat-card__label">Special Interest Groups</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__number">20+</div>
+            <div class="stat-card__label">Student Chapters</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ UPCOMING EVENT ============ -->
+  <section class="section section--gray">
+    <div class="container">
+      <div style="margin-bottom: 36px;">
+        <span class="section-label">Upcoming Event</span>
+        <h2>Next Chapter Event</h2>
+        <p style="margin-top: 10px; max-width: 540px;">Join us for our next chapter gathering. Engage with experts and expand your professional network.</p>
+      </div>
+
+      <div class="upcoming-event__card">
+        <div class="upcoming-event__sidebar">
+          <div>
+            <div class="upcoming-event__tag">Fireside Chat Series</div>
+            <div class="upcoming-event__date-big">
+              <div class="day">28</div>
+              <div class="month-year">March 2026</div>
+            </div>
+            <div class="upcoming-event__time-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-2px;margin-right:6px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              11:00 AM – 12:00 PM
+            </div>
+            <div style="margin-top:16px; color:rgba(255,255,255,0.55); font-size:0.82rem; display:flex; align-items:center; gap:6px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              In-person only
+            </div>
+          </div>
+          <a href="join.html#contact" class="btn btn--outline" style="margin-top: 28px;">Register Interest</a>
+        </div>
+        <div class="upcoming-event__body">
+          <h3>Transforming Solar PV Manufacturing with Industrial AI</h3>
+          <div class="upcoming-event__details">
+            <div class="upcoming-event__detail">
+              <div class="icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div>
+                <div class="label">Speaker</div>
+                <div class="value">Kedar Kulkarni</div>
+                <div style="font-size:0.82rem; color:var(--gray-600);">Head, AI for New Energy — Reliance Industries Ltd.</div>
+              </div>
+            </div>
+            <div class="upcoming-event__detail">
+              <div class="icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div>
+                <div class="label">Host</div>
+                <div class="value">Sameep Mehta</div>
+                <div style="font-size:0.82rem; color:var(--gray-600);">Distinguished Engineer — IBM Research India</div>
+              </div>
+            </div>
+            <div class="upcoming-event__detail">
+              <div class="icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="label">Venue</div>
+                <div class="value">Manipal Institute of Technology (MIT), MAHE Bangalore</div>
+              </div>
+            </div>
+          </div>
+          <div class="upcoming-event__actions">
+            <a href="join.html#contact" class="btn btn--primary">Register Interest</a>
+            <a href="events.html" class="btn btn--outline-blue">All Events</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RECENT ACTIVITY ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="flex-between" style="margin-bottom: 36px; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <span class="section-label">Chapter Life</span>
+          <h2>Recent Activity</h2>
+        </div>
+        <a href="events.html" class="btn btn--outline-blue btn--sm">View All Events →</a>
+      </div>
+      <div class="activity-grid">
+        <div class="activity-item">
+          <img src="assets/image9.jpeg" alt="ACM Bangalore recent chapter activity" loading="lazy" />
+          <div class="activity-item__overlay"></div>
+        </div>
+        <div class="activity-item">
+          <img src="assets/image10.jpeg" alt="ACM Bangalore event" loading="lazy" style="object-position: top center;" />
+          <div class="activity-item__overlay"></div>
+        </div>
+        <div class="activity-item">
+          <img src="assets/image11.jpeg" alt="ACM Bangalore community" loading="lazy" />
+          <div class="activity-item__overlay"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA BAND ============ -->
+  <section class="section section--navy">
+    <div class="container text-center">
+      <h2 style="color:var(--white);">Ready to Shape the Future of Computing?</h2>
+      <p style="margin-top: 14px; font-size: 1.05rem; max-width: 500px; margin-left: auto; margin-right: auto;">
+        Join the ACM Bangalore Professional Chapter and connect with leading computing professionals across India's tech hub.
+      </p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
+        <a href="join.html" class="btn btn--primary btn--lg">Become a Member</a>
+        <a href="join.html#contact" class="btn btn--outline btn--lg">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+            <img src="assets/image1.png" alt="ACM Bangalore Logo" style="height:36px; width:auto;" />
+            
+          </div>
+          <div class="footer__brand-name">ACM Bangalore Professional Chapter</div>
+          <p class="footer__tagline">
+            Serving the computing professional and academic community in Bangalore through excellence and innovation. Part of the world's largest educational and scientific computing society.
+          </p>
+          <div class="footer__social">
+            <a href="https://www.linkedin.com/in/acm-bangalore-professional-chapter-041b463b0/" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="https://www.meetup.com/acm-bangalore/" target="_blank" rel="noopener" aria-label="Meetup">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+            </a>
+            <a href="mailto:contact@acmbangalore.org" aria-label="Email">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="footer__heading">Quick Links</div>
+          <ul class="footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About ACM Bangalore</a></li>
+            <li><a href="events.html">Events & Workshops</a></li>
+            <li><a href="spotlight.html">Member Spotlight</a></li>
+            <li><a href="join.html">Join the Chapter</a></li>
+            <li><a href="join.html#contact">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Resources</div>
+          <ul class="footer__links">
+            <li><a href="https://www.acm.org/" target="_blank" rel="noopener">Global ACM</a></li>
+            <li><a href="https://india.acm.org/" target="_blank" rel="noopener">ACM India</a></li>
+            <li><a href="https://dl.acm.org/" target="_blank" rel="noopener">ACM Digital Library</a></li>
+            <li><a href="https://www.acm.org/membership" target="_blank" rel="noopener">Professional Membership</a></li>
+            <li><a href="https://www.acm.org/chapters/student-chapters" target="_blank" rel="noopener">Student Chapters</a></li>
+            <li><a href="https://www.acm.org/special-interest-groups" target="_blank" rel="noopener">Special Interest Groups</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact">
+          <div class="footer__heading">Contact</div>
+          <p>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-2px;margin-right:6px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Bangalore, Karnataka, India
+          </p>
+          <p>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-2px;margin-right:6px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Use the contact form
+          </p>
+          <div style="margin-top: 16px;">
+            <div class="footer__heading">Follow Us</div>
+            <ul class="footer__links">
+              <li>
+                <a href="https://www.linkedin.com/in/acm-bangalore-professional-chapter-041b463b0/" target="_blank" rel="noopener">
+                  LinkedIn
+                </a>
+              </li>
+              <li>
+                <a href="https://www.meetup.com/acm-bangalore/" target="_blank" rel="noopener">
+                  Meetup.com
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2024 ACM Bangalore Professional Chapter. All rights reserved. Association for Computing Machinery.</p>
+        <div class="footer__bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Code of Ethics</a>
+          <a href="https://www.acm.org/" target="_blank" rel="noopener">acm.org</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav toggle
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+
+    // Hero image Ken Burns
+    window.addEventListener('load', () => {
+      document.getElementById('heroBg').classList.add('loaded');
+    });
+  </script>
+</body>
+</html>

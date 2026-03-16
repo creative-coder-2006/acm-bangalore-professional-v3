@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join &amp; Contact — ACM Bangalore Professional Chapter</title>
+  <meta name="description" content="Join the ACM Bangalore Professional Chapter. Fill out the membership application form or get in touch with our team." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ---- TWO-COLUMN LAYOUT ---- */
+    .join-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 52px;
+      align-items: start;
+    }
+
+    /* ---- FORM CARD ---- */
+    .form-card {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      padding: 44px 40px;
+    }
+    .form-card h2 { color: var(--navy); font-size: 1.6rem; }
+    .form-card > p { color: var(--gray-600); margin-top: 10px; font-size: 0.95rem; }
+
+    /* ---- BENEFITS SIDEBAR ---- */
+    .benefits-sidebar {
+      position: sticky;
+      top: 90px;
+    }
+    .benefits-sidebar h2 { color: var(--navy); }
+    .benefits-sidebar > p { margin-top: 12px; color: var(--gray-600); font-size: 0.95rem; }
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .benefit-item:last-child { border-bottom: none; }
+    .benefit-item__icon {
+      width: 40px; height: 40px;
+      background: var(--blue-light);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--blue);
+    }
+    .benefit-item h4 { color: var(--navy); font-size: 0.95rem; margin-bottom: 4px; }
+    .benefit-item p { font-size: 0.84rem; }
+
+    /* ---- CONTACT SECTION ---- */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .contact-info-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+    }
+    .contact-info-card h3 { color: var(--navy); margin-bottom: 20px; }
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .contact-info-item:last-child { border-bottom: none; }
+    .contact-info-item__icon {
+      width: 36px; height: 36px;
+      background: var(--blue-light);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--blue);
+    }
+    .contact-info-item .label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-400); }
+    .contact-info-item .value { font-size: 0.92rem; color: var(--gray-700); margin-top: 2px; font-weight: 500; }
+
+    /* ---- SOCIAL LINKS ---- */
+    .social-link-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 22px;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      border: 1.5px solid var(--gray-200);
+      transition: all var(--transition);
+      text-decoration: none;
+      margin-bottom: 12px;
+    }
+    .social-link-card:hover {
+      border-color: var(--blue);
+      box-shadow: var(--shadow-lg);
+      transform: translateX(4px);
+    }
+    .social-link-card__icon {
+      width: 44px; height: 44px;
+      background: var(--blue);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .social-link-card .platform { font-weight: 700; color: var(--navy); font-size: 0.95rem; }
+    .social-link-card .handle  { font-size: 0.82rem; color: var(--gray-600); margin-top: 2px; }
+    .social-link-card .arrow { margin-left: auto; color: var(--gray-400); }
+
+    @media (max-width: 900px) {
+      .join-layout { grid-template-columns: 1fr; }
+      .benefits-sidebar { position: static; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .form-card { padding: 28px 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAVIGATION ============ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">
+        <img src="assets/image1.png" alt="ACM Bangalore Chapter Logo" class="nav__logo" />
+        
+        <div class="nav__name">
+          ACM Bangalore
+          <span>Professional Chapter</span>
+        </div>
+      </a>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="spotlight.html">Spotlight</a></li>
+        <li><a href="join.html" class="btn-join active">Join</a></li>
+      </ul>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============ PAGE HERO ============ -->
+  <div class="page-hero">
+    <div class="container page-hero__content">
+      <span class="section-label" style="background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.85);">Membership</span>
+      <h1>Join Our Chapter</h1>
+      <p>Become part of the ACM Bangalore Professional Chapter. Connect with computing leaders, grow your career, and shape the future of technology in India.</p>
+    </div>
+  </div>
+
+  <!-- ============ JOIN FORM + BENEFITS ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="join-layout">
+        <!-- FORM -->
+        <div class="form-card">
+          <h2>Membership Application</h2>
+          <p>Fill out the form below to express your interest in joining. We'll follow up with details on completing your membership.</p>
+
+          <form id="joinForm" style="margin-top: 28px;" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name <span style="color:var(--accent)">*</span></label>
+                <input type="text" id="firstName" name="firstName" placeholder="Ramesh" required />
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name <span style="color:var(--accent)">*</span></label>
+                <input type="text" id="lastName" name="lastName" placeholder="Kumar" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address <span style="color:var(--accent)">*</span></label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="affiliation">Affiliation / Organization <span style="color:var(--accent)">*</span></label>
+              <input type="text" id="affiliation" name="affiliation" placeholder="e.g. IISc Bangalore, IBM Research, Infosys..." required />
+            </div>
+
+            <div class="form-group">
+              <label for="role">Current Role / Position <span style="color:var(--accent)">*</span></label>
+              <input type="text" id="role" name="role" placeholder="e.g. Senior Engineer, Research Scientist, Professor..." required />
+            </div>
+
+            <div class="form-group">
+              <label for="interests">Professional Interests <span style="color:var(--accent)">*</span></label>
+              <textarea id="interests" name="interests" placeholder="e.g. Artificial Intelligence, Systems Design, Quantum Computing, Cybersecurity..." required></textarea>
+              <div class="form-note">Briefly describe your areas of professional interest or research focus.</div>
+            </div>
+
+            <div class="form-group">
+              <label for="acmNumber">ACM Membership Number <span style="color:var(--gray-400); font-weight:400;">(optional)</span></label>
+              <input type="text" id="acmNumber" name="acmNumber" placeholder="e.g. 1234567" />
+              <div class="form-note">If you are already an ACM member, enter your membership number. <a href="https://www.acm.org/membership" target="_blank" rel="noopener" style="color:var(--blue);">Become an ACM member →</a></div>
+            </div>
+
+            <button type="submit" class="btn btn--primary" style="width:100%; justify-content:center; margin-top:8px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Submit Application
+            </button>
+            <p style="font-size:0.78rem; color:var(--gray-400); text-align:center; margin-top:12px;">Your information will be shared securely with chapter officers only.</p>
+          </form>
+        </div>
+
+        <!-- BENEFITS -->
+        <div class="benefits-sidebar">
+          <span class="section-label">Why Join</span>
+          <h2>Membership Benefits</h2>
+          <p>Everything you gain as a member of the ACM Bangalore Professional Chapter.</p>
+
+          <div style="margin-top: 24px;">
+            <div class="benefit-item">
+              <div class="benefit-item__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <h4>Professional Networking</h4>
+                <p>Connect with 500+ computing professionals, researchers, and academics across Bangalore's vibrant tech ecosystem.</p>
+              </div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-item__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div>
+                <h4>Eminence &amp; Showcase</h4>
+                <p>Opportunities to present your work, share expertise, and build your professional reputation within the local and global ACM community.</p>
+              </div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-item__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              </div>
+              <div>
+                <h4>Mentoring Opportunities</h4>
+                <p>Access formal and informal mentoring relationships with senior professionals and researchers across academia and industry.</p>
+              </div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-item__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              </div>
+              <div>
+                <h4>Knowledge Sharing</h4>
+                <p>Be part of a knowledge-sharing community — attend exclusive seminars, workshops, and fireside chats not available to the general public.</p>
+              </div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-item__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <div>
+                <h4>Local Technical Content</h4>
+                <p>Access high-quality, locally curated technical content from India's leading computing professionals — relevant to the Bangalore and India tech ecosystem.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ACM Membership Note -->
+          <div style="background:var(--blue-light); border-radius:var(--radius-sm); padding:18px 20px; margin-top:24px; border-left:3px solid var(--blue);">
+            <div style="font-size:0.82rem; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px;">Also Consider</div>
+            <p style="font-size:0.88rem; color:var(--navy); margin:0; font-weight:500;">Global ACM membership gives you access to the world's largest digital library of computing research, special interest groups, and international conferences.</p>
+            <a href="https://www.acm.org/membership" target="_blank" rel="noopener" style="display:inline-block; margin-top:10px; font-size:0.84rem; color:var(--blue); font-weight:600;">Learn about ACM membership →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT SECTION ============ -->
+  <section class="section section--gray" id="contact">
+    <div class="container">
+      <div style="margin-bottom: 48px;">
+        <span class="section-label">Get in Touch</span>
+        <h2>Contact Us</h2>
+        <p style="margin-top: 10px; max-width: 520px;">Have a question about membership, events, or chapter partnerships? Reach out to our team using the form below.</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- CONTACT FORM -->
+        <div class="form-card" style="padding:36px;">
+          <h3 style="color:var(--navy); margin-bottom:4px;">Send a Message</h3>
+          <p style="font-size:0.9rem; color:var(--gray-600); margin-bottom:24px;">We typically respond within 2–3 business days.</p>
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="cName">Your Name <span style="color:var(--accent)">*</span></label>
+                <input type="text" id="cName" name="cName" placeholder="Full name" required />
+              </div>
+              <div class="form-group">
+                <label for="cEmail">Email <span style="color:var(--accent)">*</span></label>
+                <input type="email" id="cEmail" name="cEmail" placeholder="you@example.com" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cSubject">Subject <span style="color:var(--accent)">*</span></label>
+              <input type="text" id="cSubject" name="cSubject" placeholder="How can we help?" required />
+            </div>
+            <div class="form-group">
+              <label for="cMessage">Message <span style="color:var(--accent)">*</span></label>
+              <textarea id="cMessage" name="cMessage" placeholder="Your message..." style="min-height:130px;" required></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary" style="width:100%; justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Send Message
+            </button>
+          </form>
+        </div>
+
+        <!-- CONTACT INFO + SOCIAL -->
+        <div>
+          <div class="contact-info-card">
+            <h3>Chapter Information</h3>
+            <div class="contact-info-item">
+              <div class="contact-info-item__icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="label">Location</div>
+                <div class="value">Bangalore, Karnataka, India<br><span style="font-size:0.8rem;font-weight:400;color:var(--gray-400);">Silicon Valley of India</span></div>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-item__icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <div>
+                <div class="label">Affiliated With</div>
+                <div class="value">ACM India · Global ACM</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 28px;">
+            <h3 style="color:var(--navy); margin-bottom:16px; font-size:1.1rem;">Follow Us</h3>
+            <a href="https://www.linkedin.com/in/acm-bangalore-professional-chapter-041b463b0/" target="_blank" rel="noopener" class="social-link-card">
+              <div class="social-link-card__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </div>
+              <div>
+                <div class="platform">LinkedIn</div>
+                <div class="handle">ACM Bangalore Professional Chapter</div>
+              </div>
+              <div class="arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </div>
+            </a>
+            <a href="https://www.meetup.com/acm-bangalore/" target="_blank" rel="noopener" class="social-link-card">
+              <div class="social-link-card__icon" style="background:#e0393e;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+              </div>
+              <div>
+                <div class="platform">Meetup.com</div>
+                <div class="handle">ACM Bangalore</div>
+              </div>
+              <div class="arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+            <img src="assets/image1.png" alt="ACM Bangalore Logo" style="height:36px; width:auto;" />
+            
+          </div>
+          <div class="footer__brand-name">ACM Bangalore Professional Chapter</div>
+          <p class="footer__tagline">Serving the computing professional and academic community in Bangalore through excellence and innovation.</p>
+          <div class="footer__social">
+            <a href="https://www.linkedin.com/in/acm-bangalore-professional-chapter-041b463b0/" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="https://www.meetup.com/acm-bangalore/" target="_blank" rel="noopener" aria-label="Meetup">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+            </a>
+            <a href="mailto:contact@acmbangalore.org" aria-label="Email">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="footer__heading">Quick Links</div>
+          <ul class="footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About ACM Bangalore</a></li>
+            <li><a href="events.html">Events &amp; Workshops</a></li>
+            <li><a href="spotlight.html">Member Spotlight</a></li>
+            <li><a href="join.html">Join the Chapter</a></li>
+            <li><a href="join.html#contact">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Resources</div>
+          <ul class="footer__links">
+            <li><a href="https://www.acm.org/" target="_blank" rel="noopener">Global ACM</a></li>
+            <li><a href="https://india.acm.org/" target="_blank" rel="noopener">ACM India</a></li>
+            <li><a href="https://dl.acm.org/" target="_blank" rel="noopener">ACM Digital Library</a></li>
+            <li><a href="https://www.acm.org/membership" target="_blank" rel="noopener">Professional Membership</a></li>
+            <li><a href="https://www.acm.org/chapters/student-chapters" target="_blank" rel="noopener">Student Chapters</a></li>
+            <li><a href="https://www.acm.org/special-interest-groups" target="_blank" rel="noopener">Special Interest Groups</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact">
+          <div class="footer__heading">Contact</div>
+          <p>Bangalore, Karnataka, India</p>
+          <p>Use the contact form</p>
+          <div style="margin-top:16px;">
+            <div class="footer__heading">Follow Us</div>
+            <ul class="footer__links">
+              <li><a href="https://www.linkedin.com/in/acm-bangalore-professional-chapter-041b463b0/" target="_blank" rel="noopener">LinkedIn</a></li>
+              <li><a href="https://www.meetup.com/acm-bangalore/" target="_blank" rel="noopener">Meetup.com</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2024 ACM Bangalore Professional Chapter. All rights reserved. Association for Computing Machinery.</p>
+        <div class="footer__bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Code of Ethics</a>
+          <a href="https://www.acm.org/" target="_blank" rel="noopener">acm.org</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // Nav toggle
+    const toggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+    // Toast helper
+    function showToast(msg, duration = 4000) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), duration);
+    }
+
+    // Membership form submission (secure mailto — email not in source)
+    document.getElementById('joinForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Validate required fields
+      const required = ['firstName','lastName','email','affiliation','role','interests'];
+      let valid = true;
+      required.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) { el.style.borderColor = 'var(--accent)'; valid = false; }
+        else { el.style.borderColor = ''; }
+      });
+      if (!valid) { showToast('⚠ Please fill in all required fields.', 3500); return; }
+
+      // Build email body from form values
+      const data = {
+        'First Name':             document.getElementById('firstName').value.trim(),
+        'Last Name':              document.getElementById('lastName').value.trim(),
+        'Email':                  document.getElementById('email').value.trim(),
+        'Affiliation':            document.getElementById('affiliation').value.trim(),
+        'Role / Position':        document.getElementById('role').value.trim(),
+        'Professional Interests': document.getElementById('interests').value.trim(),
+        'ACM Membership Number':  document.getElementById('acmNumber').value.trim() || 'N/A',
+      };
+
+      const body = Object.entries(data)
+        .map(([k, v]) => k + ': ' + v)
+        .join('\n');
+
+      // Obfuscated recipient — assembled at runtime to prevent harvesting
+      const parts = ['ACM-BLR-OFFICERS', 'listserv', 'acm', 'org'];
+      const recipient = parts[0] + '@' + parts[1] + '.' + parts[2] + '.' + parts[3];
+      const subject   = encodeURIComponent('New Membership Application — ' + data['First Name'] + ' ' + data['Last Name']);
+      const mailBody  = encodeURIComponent('Dear ACM Bangalore Officers,\n\nA new membership application has been submitted:\n\n' + body + '\n\nKind regards,\nACM Bangalore Chapter Website');
+
+      window.location.href = 'mailto:' + recipient + '?subject=' + subject + '&body=' + mailBody;
+      showToast('✓ Opening your email client to send the application…');
+    });
+
+    // Contact form submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const required = ['cName','cEmail','cSubject','cMessage'];
+      let valid = true;
+      required.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) { el.style.borderColor = 'var(--accent)'; valid = false; }
+        else { el.style.borderColor = ''; }
+      });
+      if (!valid) { showToast('⚠ Please fill in all required fields.', 3500); return; }
+
+      const name    = document.getElementById('cName').value.trim();
+      const email   = document.getElementById('cEmail').value.trim();
+      const subject = document.getElementById('cSubject').value.trim();
+      const message = document.getElementById('cMessage').value.trim();
+
+      const body = 'Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message;
+
+      const parts = ['ACM-BLR-OFFICERS', 'listserv', 'acm', 'org'];
+      const recipient = parts[0] + '@' + parts[1] + '.' + parts[2] + '.' + parts[3];
+      const mailSubject = encodeURIComponent('[ACM Bangalore] ' + subject);
+      const mailBody    = encodeURIComponent(body);
+
+      window.location.href = 'mailto:' + recipient + '?subject=' + mailSubject + '&body=' + mailBody;
+      showToast('✓ Opening your email client…');
+    });
+  </script>
+</body>
+</html>

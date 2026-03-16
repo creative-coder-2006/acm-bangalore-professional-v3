@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events — ACM Bangalore Professional Chapter</title>
+  <meta name="description" content="Explore upcoming and past events from the ACM Bangalore Professional Chapter. Join our fireside chats, workshops, and technical seminars." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ---- FEATURED EVENT ---- */
+    .featured-event {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+    }
+    .featured-event__panel {
+      background: linear-gradient(160deg, var(--navy) 0%, #153554 100%);
+      padding: 44px 36px;
+      display: flex;
+      flex-direction: column;
+    }
+    .featured-event__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,115,183,0.3);
+      border: 1px solid rgba(0,115,183,0.5);
+      color: #7cc8f8;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+      width: fit-content;
+    }
+    .featured-event__badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: #4db8ff;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%  { opacity: 0.5; transform: scale(1.3); }
+    }
+    .featured-event__date { color: var(--white); flex: 1; }
+    .featured-event__date .day { font-size: 5.5rem; font-weight: 800; line-height: 1; }
+    .featured-event__date .month { font-size: 1.1rem; font-weight: 600; opacity: 0.65; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+    .featured-event__date .year { font-size: 1.4rem; font-weight: 700; color: rgba(255,255,255,0.5); }
+    .featured-event__meta {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .featured-event__meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.88rem;
+    }
+    .featured-event__meta-row svg { flex-shrink: 0; color: rgba(77,184,255,0.8); }
+
+    .featured-event__body { padding: 44px; }
+    .featured-event__type {
+      display: inline-block;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    .featured-event__title {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .featured-event__speakers {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .speaker-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px;
+      background: var(--gray-50);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--blue);
+    }
+    .speaker-row__avatar {
+      width: 42px; height: 42px;
+      background: var(--blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .speaker-row__role {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--blue);
+      margin-bottom: 3px;
+    }
+    .speaker-row__name { font-weight: 700; color: var(--navy); font-size: 0.95rem; }
+    .speaker-row__org { font-size: 0.82rem; color: var(--gray-600); margin-top: 2px; }
+
+    .featured-event__actions { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+
+    /* ---- PAST EVENTS ---- */
+    .past-event-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 22px 24px;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-200);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .past-event-item:hover {
+      border-color: var(--blue);
+      box-shadow: var(--shadow-md);
+    }
+    .past-event-item__date {
+      min-width: 56px;
+      text-align: center;
+      background: var(--gray-100);
+      border-radius: var(--radius-sm);
+      padding: 8px 6px;
+    }
+    .past-event-item__date .month { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue); }
+    .past-event-item__date .day { font-size: 1.6rem; font-weight: 800; color: var(--navy); line-height: 1.1; }
+    .past-event-item__content { flex: 1; }
+    .past-event-item__title { font-weight: 700; color: var(--navy); font-size: 0.98rem; }
+    .past-event-item__sub { font-size: 0.84rem; color: var(--gray-600); margin-top: 4px; }
+
+    /* ---- GALLERY ---- */
+    .gallery-masonry {
+      columns: 3;
+      column-gap: 16px;
+    }
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 16px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: zoom-in;
+      position: relative;
+    }
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.03); }
+
+    @media (max-width: 900px) {
+      .featured-event { grid-template-columns: 1fr; }
+      .featured-event__panel { padding: 32px; }
+      .featured-event__body { padding: 32px; }
+      .gallery-masonry { columns: 2; }
+    }
+    @media (max-width: 560px) {
+      .featured-event__title { font-size: 1.5rem; }
+      .gallery-masonry { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAVIGATION ============ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">
+        <img src="assets/image1.png" alt="ACM Bangalore Chapter Logo" class="nav__logo" />
+        
+        <div class="nav__name">
+          ACM Bangalore
+          <span>Professional Chapter</span>
+        </div>
+      </a>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
+        <li><a href="spotlight.html">Spotlight</a></li>
+        <li><a href="join.html" class="btn-join">Join</a></li>
+      </ul>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============ PAGE HERO ============ -->
+  <div class="page-hero">
+    <div class="container page-hero__content">
+      <span class="section-label" style="background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.85);">Chapter Events</span>
+      <h1>ACM Bangalore Events</h1>
+      <p>Connecting professionals and students through high-impact technical events, workshops, and fireside chats in the heart of India's tech hub.</p>
+    </div>
+  </div>
+
+  <!-- ============ UPCOMING EVENT ============ -->
+  <section class="section">
+    <div class="container">
+      <div style="margin-bottom: 36px;">
+        <span class="section-label">Upcoming</span>
+        <h2>Next Event</h2>
+        <p style="margin-top: 10px; max-width: 540px;">Our upcoming Fireside Chat Series brings together thought leaders to explore the intersection of AI and industry.</p>
+      </div>
+
+      <div class="featured-event">
+        <div class="featured-event__panel">
+          <div class="featured-event__badge">Upcoming</div>
+          <div class="featured-event__date">
+            <div class="day">28</div>
+            <div class="month">March</div>
+            <div class="year">2026</div>
+          </div>
+          <div class="featured-event__meta">
+            <div class="featured-event__meta-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              11:00 AM – 12:00 PM IST
+            </div>
+            <div class="featured-event__meta-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              MIT MAHE, Bangalore
+            </div>
+            <div class="featured-event__meta-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              In-person only
+            </div>
+          </div>
+        </div>
+        <div class="featured-event__body">
+          <div class="featured-event__type">Fireside Chat Series</div>
+          <h2 class="featured-event__title">Transforming Solar PV Manufacturing with Industrial AI</h2>
+          <p style="margin-top: 14px; color: var(--gray-600); font-size: 0.95rem;">
+            Join us for an insightful fireside chat exploring how Artificial Intelligence is revolutionizing solar PV manufacturing processes at industrial scale — with implications for India's clean energy future.
+          </p>
+          <div class="featured-event__speakers">
+            <div class="speaker-row">
+              <div class="speaker-row__avatar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div>
+                <div class="speaker-row__role">Speaker</div>
+                <div class="speaker-row__name">Kedar Kulkarni</div>
+                <div class="speaker-row__org">Head, AI for New Energy — Reliance Industries Ltd.</div>
+              </div>
+            </div>
+            <div class="speaker-row">
+              <div class="speaker-row__avatar" style="background: var(--navy);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div>
+                <div class="speaker-row__role" style="color:var(--navy);">Host</div>
+                <div class="speaker-row__name">Sameep Mehta</div>
+                <div class="speaker-row__org">Distinguished Engineer — IBM Research India</div>
+              </div>
+            </div>
+          </div>
+          <div class="featured-event__actions">
+            <a href="join.html#contact" class="btn btn--primary">Register Interest</a>
+            <a href="join.html#contact" class="btn btn--outline-blue">Contact Organizers</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAST EVENTS ============ -->
+  <section class="section section--gray">
+    <div class="container">
+      <div style="margin-bottom: 36px;">
+        <span class="section-label">Archive</span>
+        <h2>Past Events</h2>
+        <p style="margin-top: 10px; max-width: 540px;">A selection of our recent chapter activities and gatherings.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="past-event-item">
+          <div class="past-event-item__date">
+            <div class="month">Mar</div>
+            <div class="day">15</div>
+          </div>
+          <div class="past-event-item__content">
+            <div class="past-event-item__title">ACM Bangalore Chapter Gathering</div>
+            <div class="past-event-item__sub">Chapter networking and knowledge-sharing session — Bangalore</div>
+          </div>
+          <span style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:600;color:var(--blue);background:var(--blue-light);padding:4px 12px;border-radius:999px;white-space:nowrap;">Completed</span>
+        </div>
+
+        <div class="past-event-item">
+          <div class="past-event-item__date">
+            <div class="month">Feb</div>
+            <div class="day">22</div>
+          </div>
+          <div class="past-event-item__content">
+            <div class="past-event-item__title">Technical Workshop on AI &amp; ML</div>
+            <div class="past-event-item__sub">Hands-on workshop covering latest advances in machine learning and AI applications</div>
+          </div>
+          <span style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:600;color:var(--blue);background:var(--blue-light);padding:4px 12px;border-radius:999px;white-space:nowrap;">Completed</span>
+        </div>
+
+        <div class="past-event-item">
+          <div class="past-event-item__date">
+            <div class="month">Jan</div>
+            <div class="day">18</div>
+          </div>
+          <div class="past-event-item__content">
+            <div class="past-event-item__title">Annual Chapter Kickoff &amp; Networking</div>
+            <div class="past-event-item__sub">Start of year gathering with member introductions, goal setting, and planning for 2026</div>
+          </div>
+          <span style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:600;color:var(--blue);background:var(--blue-light);padding:4px 12px;border-radius:999px;white-space:nowrap;">Completed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RECENT ACTIVITY GALLERY ============ -->
+  <section class="section">
+    <div class="container">
+      <div style="margin-bottom: 36px;">
+        <span class="section-label">Gallery</span>
+        <h2>Recent Activity</h2>
+        <p style="margin-top: 10px; max-width: 540px;">Moments from our recent events, workshops, and chapter gatherings.</p>
+      </div>
+      <div class="gallery-masonry">
+        <div class="gallery-item">
+          <img src="assets/image9.jpeg" alt="ACM Bangalore event activity" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img src="assets/image11.jpeg" alt="ACM Bangalore community gathering" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img src="assets/image10.jpeg" alt="ACM Bangalore event" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="section section--navy">
+    <div class="container text-center">
+      <h2 style="color:var(--white);">Never Miss an Event</h2>
+      <p style="margin-top: 14px; font-size: 1.05rem; max-width: 480px; margin-left: auto; margin-right: auto;">
+        Join our chapter to receive notifications about upcoming events, workshops, and fireside chats.
+      </p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
+        <a href="join.html" class="btn btn--primary btn--lg">Join the Chapter</a>
+        <a href="https://www.meetup.com/acm-bangalore/" target="_blank" rel="noopener" class="btn btn--outline btn--lg">Follow on Meetup</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+            <img src="assets/image1.png" alt="ACM Bangalore Logo" style="height:36px; width:auto;" />
+            
+          </div>
+          <div class="footer__brand-name">ACM Bangalore Professional Chapter</div>
+          <p class="footer__tagline">Serving the computing professional and academic community in Bangalore through excellence and innovation.</p>
+          <div class="footer__social">
+            <a href="https://www.linkedin.com/in/acm-bangalore-professional-chapter-041b463b0/" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="https://www.meetup.com/acm-bangalore/" target="_blank" rel="noopener" aria-label="Meetup">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+            </a>
+            <a href="mailto:contact@acmbangalore.org" aria-label="Email">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="footer__heading">Quick Links</div>
+          <ul class="footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About ACM Bangalore</a></li>
+            <li><a href="events.html">Events &amp; Workshops</a></li>
+            <li><a href="spotlight.html">Member Spotlight</a></li>
+            <li><a href="join.html">Join the Chapter</a></li>
+            <li><a href="join.html#contact">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Resources</div>
+          <ul class="footer__links">
+            <li><a href="https://www.acm.org/" target="_blank" rel="noopener">Global ACM</a></li>
+            <li><a href="https://india.acm.org/" target="_blank" rel="noopener">ACM India</a></li>
+            <li><a href="https://dl.acm.org/" target="_blank" rel="noopener">ACM Digital Library</a></li>
+            <li><a href="https://www.acm.org/membership" target="_blank" rel="noopener">Professional Membership</a></li>
+            <li><a href="https://www.acm.org/chapters/student-chapters" target="_blank" rel="noopener">Student Chapters</a></li>
+            <li><a href="https://www.acm.org/special-interest-groups" target="_blank" rel="noopener">Special Interest Groups</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact">
+          <div class="footer__heading">Contact</div>
+          <p>Bangalore, Karnataka, India</p>
+          <p>Use the contact form</p>
+          <div style="margin-top:16px;">
+            <div class="footer__heading">Follow Us</div>
+            <ul class="footer__links">
+              <li><a href="https://www.linkedin.com/in/acm-bangalore-professional-chapter-041b463b0/" target="_blank" rel="noopener">LinkedIn</a></li>
+              <li><a href="https://www.meetup.com/acm-bangalore/" target="_blank" rel="noopener">Meetup.com</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2024 ACM Bangalore Professional Chapter. All rights reserved. Association for Computing Machinery.</p>
+        <div class="footer__bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Code of Ethics</a>
+          <a href="https://www.acm.org/" target="_blank" rel="noopener">acm.org</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+  </script>
+</body>
+</html>
