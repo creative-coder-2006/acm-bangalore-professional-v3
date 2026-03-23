@@ -12,7 +12,7 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f1f5f9;color:#1e
 a{text-decoration:none;color:inherit}
 input,textarea,select,button{font-family:inherit}
 
-/* ── BUTTONS ─────────────────────────────── */
+/* ── BUTTONS ──────────────────────────────────────────── */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border:none;border-radius:8px;font-size:0.88rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
 .btn-primary{background:#0073b7;color:#fff}.btn-primary:hover{background:#005a91}
 .btn-danger {background:#dc2626;color:#fff}.btn-danger:hover{background:#b91c1c}
@@ -22,7 +22,7 @@ input,textarea,select,button{font-family:inherit}
 .btn-full{width:100%;justify-content:center}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 
-/* ── FORM ELEMENTS ───────────────────────── */
+/* ── FORM ELEMENTS ─────────────────────────────────────── */
 .field{margin-bottom:15px}
 .field label{display:block;font-size:0.82rem;font-weight:600;color:#475569;margin-bottom:5px}
 .field input,.field textarea,.field select{width:100%;padding:10px 13px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:0.9rem;outline:none;transition:border-color .2s;background:#fff;color:#1e293b}
@@ -33,7 +33,7 @@ input,textarea,select,button{font-family:inherit}
 .form-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .form-actions{display:flex;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid #f1f5f9}
 
-/* ── LOGIN PAGE ──────────────────────────── */
+/* ── LOGIN PAGE ────────────────────────────────────────── */
 #loginPage{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#0d1b2a 0%,#14334f 100%)}
 .login-wrap{width:100%;max-width:420px;padding:20px}
 .login-card{background:#fff;border-radius:18px;padding:44px 40px;box-shadow:0 25px 60px rgba(0,0,0,.35)}
@@ -45,11 +45,11 @@ input,textarea,select,button{font-family:inherit}
 .setup-box{margin-top:20px;padding:16px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;text-align:center}
 .setup-box p{font-size:0.84rem;color:#0369a1;margin-bottom:10px}
 
-/* ── DASHBOARD LAYOUT ────────────────────── */
+/* ── DASHBOARD LAYOUT ──────────────────────────────────── */
 #dashPage{display:none;height:100vh;overflow:hidden}
 #dashPage.active{display:flex}
 
-/* Sidebar */
+/* ── SIDEBAR ───────────────────────────────────────────── */
 .sidebar{width:240px;background:#0d1b2a;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
 .sb-brand{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
 .sb-brand img{height:34px}
@@ -64,7 +64,7 @@ input,textarea,select,button{font-family:inherit}
 .nav-item svg{flex-shrink:0;width:16px;height:16px}
 .sb-bottom{padding:16px 18px;border-top:1px solid rgba(255,255,255,.08)}
 
-/* Main content */
+/* ── MAIN CONTENT ──────────────────────────────────────── */
 .main-area{flex:1;overflow-y:auto}
 .sec{display:none;padding:28px 32px;animation:fadeIn .2s ease}
 .sec.active{display:block}
@@ -72,14 +72,13 @@ input,textarea,select,button{font-family:inherit}
 .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:10px}
 .sec-head h2{font-size:1.35rem;font-weight:700;color:#0d1b2a}
 
-/* Stats */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px}
-.stat-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,.07);border-top:3px solid #0073b7;transition:box-shadow .2s}
-.stat-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1)}
+/* ── STATS ─────────────────────────────────────────────── */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:24px}
+.stat-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,.07);border-top:3px solid #0073b7}
 .stat-num{font-size:2rem;font-weight:800;color:#0d1b2a;line-height:1}
 .stat-lbl{font-size:.8rem;color:#64748b;margin-top:5px;font-weight:500}
 
-/* Cards */
+/* ── EVENT CARDS ───────────────────────────────────────── */
 .event-card{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:10px;overflow:hidden;border-left:4px solid #0073b7}
 .event-card-head{display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;cursor:pointer;gap:12px}
 .event-card-head:hover{background:#fafafa}
@@ -92,7 +91,7 @@ input,textarea,select,button{font-family:inherit}
 .badge-contact{background:#fef3c7;color:#92400e}
 .badge-membership{background:#ede9fe;color:#5b21b6}
 
-/* Event expand body */
+/* ── EVENT EXPAND BODY ─────────────────────────────────── */
 .event-body{display:none;padding:0 20px 20px;border-top:1px solid #f1f5f9}
 .event-body.open{display:block}
 .ev-tabs{display:flex;gap:0;margin-bottom:18px;border-bottom:2px solid #e2e8f0;padding-top:14px}
@@ -100,19 +99,23 @@ input,textarea,select,button{font-family:inherit}
 .ev-tab.active{color:#0073b7;border-bottom-color:#0073b7}
 .ev-tab-pane{display:none}.ev-tab-pane.active{display:block}
 
-/* Add form panel */
+/* ── ADD PANEL ─────────────────────────────────────────── */
 .add-panel{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.07);padding:22px 24px;margin-bottom:18px;display:none;border-top:3px solid #16a34a}
 .add-panel.open{display:block}
 .add-panel h3{font-size:1.05rem;color:#0d1b2a;margin-bottom:18px;font-weight:700}
 
-/* Photo grid */
+/* ── PHOTO GRID ────────────────────────────────────────── */
 .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
 .photo-thumb{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1;background:#e2e8f0}
 .photo-thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .photo-del{position:absolute;top:5px;right:5px;background:rgba(220,38,38,.9);color:#fff;border:none;border-radius:6px;width:26px;height:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
 .photo-thumb:hover .photo-del{opacity:1}
 
-/* Upload zone */
+/* ── BANNER PREVIEW ────────────────────────────────────── */
+.banner-preview{width:100%;height:160px;border-radius:10px;object-fit:cover;display:block;margin-bottom:10px;border:2px solid #e2e8f0}
+.banner-preview-placeholder{width:100%;height:160px;border-radius:10px;background:linear-gradient(135deg,#0d1b2a,#153554);display:flex;align-items:center;justify-content:center;margin-bottom:10px;opacity:0.6}
+
+/* ── UPLOAD ZONE ───────────────────────────────────────── */
 .upload-zone{border:2px dashed #cbd5e1;border-radius:10px;padding:24px 16px;text-align:center;cursor:pointer;transition:all .2s;margin-top:10px;position:relative}
 .upload-zone:hover,.upload-zone.dragover{border-color:#0073b7;background:#f0f9ff}
 .upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
@@ -120,7 +123,7 @@ input,textarea,select,button{font-family:inherit}
 .upload-zone p{font-size:.84rem;color:#94a3b8}
 .upload-zone .accepted{font-size:.75rem;color:#cbd5e1;margin-top:4px}
 
-/* Submissions table */
+/* ── TABLE ─────────────────────────────────────────────── */
 .tbl-wrap{overflow-x:auto;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
 table{width:100%;border-collapse:collapse;background:#fff;font-size:.85rem}
 th{text-align:left;padding:11px 14px;font-size:.73rem;text-transform:uppercase;letter-spacing:.07em;color:#64748b;background:#f8fafc;border-bottom:1px solid #e2e8f0;white-space:nowrap}
@@ -129,7 +132,7 @@ tr:last-child td{border-bottom:none}
 tr:hover td{background:#fafafa}
 .td-wrap{white-space:normal;max-width:260px}
 
-/* Admin cards */
+/* ── ADMIN CARDS ───────────────────────────────────────── */
 .admin-card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 1px 4px rgba(0,0,0,.07);display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
 .admin-card .uname{font-weight:700;color:#0d1b2a}
 .admin-card .udate{font-size:.8rem;color:#94a3b8;margin-top:3px}
@@ -138,17 +141,15 @@ tr:hover td{background:#fafafa}
 .danger-zone h4{font-size:.95rem;font-weight:700;color:#991b1b;margin-bottom:6px}
 .danger-zone p{font-size:.84rem;color:#b91c1c;margin-bottom:14px}
 
-/* Toast */
+/* ── TOAST ─────────────────────────────────────────────── */
 .toast{position:fixed;bottom:22px;right:22px;background:#0d1b2a;color:#fff;padding:12px 20px;border-radius:9px;font-size:.87rem;font-weight:500;box-shadow:0 8px 32px rgba(0,0,0,.22);z-index:9999;opacity:0;transform:translateY(8px);transition:all .3s;pointer-events:none;max-width:320px}
 .toast.show{opacity:1;transform:translateY(0)}
 .toast.success{background:#15803d}
 .toast.error{background:#b91c1c}
 
-/* Loading spinner */
+/* ── MISC ──────────────────────────────────────────────── */
 .spinner{display:inline-block;width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* Empty state */
 .empty{text-align:center;padding:44px;color:#94a3b8}
 .empty svg{margin:0 auto 12px;display:block;opacity:.25}
 .empty p{font-size:.9rem}
@@ -185,15 +186,12 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
           <label>Password</label>
           <input type="password" id="lp" placeholder="Enter password" autocomplete="current-password" required/>
         </div>
-        <button type="submit" class="btn btn-primary btn-full" id="loginBtn">
-          Sign In
-        </button>
+        <button type="submit" class="btn btn-primary btn-full" id="loginBtn">Sign In</button>
         <div class="login-err" id="loginErr"></div>
       </form>
 
-      <!-- First-time setup (shown only when no admins exist) -->
       <div class="setup-box" id="setupBox" style="display:none">
-        <p id="setupMsg">No admin account found. Click below to create the initial admin account (surya.rimmalapudi).</p>
+        <p id="setupMsg">No admin account found. Click below to create the initial admin account.</p>
         <button class="btn btn-success btn-sm" onclick="firstTimeSetup()">Initialize Admin Account</button>
       </div>
     </div>
@@ -228,6 +226,10 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         Past Events
       </div>
+      <div class="nav-item" onclick="showSec('registrations')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Registrations
+      </div>
       <div class="nav-item" onclick="showSec('gallery')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
         Gallery
@@ -255,14 +257,13 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
   <!-- MAIN AREA -->
   <div class="main-area">
 
-    <!-- OVERVIEW -->
+    <!-- ── OVERVIEW ─────────────────────────────── -->
     <div class="sec active" id="secOverview">
-      <div class="sec-head">
-        <h2>Overview</h2>
-      </div>
+      <div class="sec-head"><h2>Overview</h2></div>
       <div class="stats-grid" id="statsGrid">
         <div class="stat-card"><div class="stat-num" id="stUpcoming">—</div><div class="stat-lbl">Upcoming Events</div></div>
         <div class="stat-card"><div class="stat-num" id="stPast">—</div><div class="stat-lbl">Past Events</div></div>
+        <div class="stat-card"><div class="stat-num" id="stRegistrations">—</div><div class="stat-lbl">Registrations</div></div>
         <div class="stat-card"><div class="stat-num" id="stGallery">—</div><div class="stat-lbl">Gallery Photos</div></div>
         <div class="stat-card"><div class="stat-num" id="stSubmissions">—</div><div class="stat-lbl">Form Submissions</div></div>
       </div>
@@ -271,20 +272,20 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <button class="btn btn-primary btn-sm" onclick="showSec('upcoming');toggleAddPanel('addUpcomingPanel')">+ Add Upcoming Event</button>
           <button class="btn btn-ghost btn-sm" onclick="showSec('past');toggleAddPanel('addPastPanel')">+ Add Past Event</button>
+          <button class="btn btn-ghost btn-sm" onclick="showSec('registrations')">View Registrations</button>
           <button class="btn btn-ghost btn-sm" onclick="showSec('gallery')">Upload to Gallery</button>
           <button class="btn btn-ghost btn-sm" onclick="showSec('submissions')">View Submissions</button>
         </div>
       </div>
     </div>
 
-    <!-- UPCOMING EVENTS -->
+    <!-- ── UPCOMING EVENTS ───────────────────────── -->
     <div class="sec" id="secUpcoming">
       <div class="sec-head">
         <h2>Upcoming Events</h2>
         <button class="btn btn-primary btn-sm" onclick="toggleAddPanel('addUpcomingPanel')">+ Add Event</button>
       </div>
 
-      <!-- Add form -->
       <div class="add-panel" id="addUpcomingPanel">
         <h3>Add Upcoming Event</h3>
         <div class="form-row">
@@ -298,7 +299,10 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
             <select id="uMode"><option>In-person only</option><option>Virtual only</option><option>Hybrid</option></select>
           </div>
         </div>
-        <div class="field"><label>Location / Venue</label><input id="uLoc" placeholder="MIT MAHE, Bangalore"/></div>
+        <div class="form-row">
+          <div class="field"><label>Location / Venue</label><input id="uLoc" placeholder="Venue name and city"/></div>
+          <div class="field"><label>Display Order</label><input type="number" id="uOrder" value="0" min="0" placeholder="0"/></div>
+        </div>
         <div class="form-row">
           <div class="field"><label>Speaker Name</label><input id="uSpkName" placeholder="Speaker name"/></div>
           <div class="field"><label>Speaker Organization</label><input id="uSpkOrg" placeholder="Organization"/></div>
@@ -307,7 +311,16 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
           <div class="field"><label>Host Name</label><input id="uHostName" placeholder="Host name"/></div>
           <div class="field"><label>Host Organization</label><input id="uHostOrg" placeholder="Organization"/></div>
         </div>
-        <div class="field"><label>Description</label><textarea id="uDesc" placeholder="Brief description of the event..."></textarea></div>
+        <div class="field"><label>Description</label><textarea id="uDesc" placeholder="Brief description of the event…"></textarea></div>
+        <div class="field">
+          <label>Banner Photo <span style="font-weight:400;color:#94a3b8">(optional)</span></label>
+          <div id="uBannerPreview"></div>
+          <div class="upload-zone" style="margin:0;padding:16px 20px">
+            <input type="file" accept="image/*" id="uBanner" onchange="previewBanner(this,'uBannerPreview')"/>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <p>Click or drag a banner image</p><div class="accepted">PNG, JPG, WEBP • Recommended 1200×420px</div>
+          </div>
+        </div>
         <div class="form-actions">
           <button class="btn btn-success" onclick="addEvent('upcoming')">Save Event</button>
           <button class="btn btn-ghost" onclick="toggleAddPanel('addUpcomingPanel')">Cancel</button>
@@ -317,7 +330,7 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
       <div id="upcomingList"></div>
     </div>
 
-    <!-- PAST EVENTS -->
+    <!-- ── PAST EVENTS ───────────────────────────── -->
     <div class="sec" id="secPast">
       <div class="sec-head">
         <h2>Past Events</h2>
@@ -346,15 +359,15 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
           <div class="field"><label>Host Name</label><input id="pHostName"/></div>
           <div class="field"><label>Host Organization</label><input id="pHostOrg"/></div>
         </div>
-        <div class="field"><label>Description</label><textarea id="pDesc" placeholder="Brief description..."></textarea></div>
+        <div class="field"><label>Description</label><textarea id="pDesc" placeholder="Brief description…"></textarea></div>
         <div class="field">
-          <label>Event Photos <span style="font-weight:400;color:#94a3b8">(optional — you can also add these later)</span></label>
-          <div class="upload-zone" style="margin:0;padding:18px 20px">
-            <input type="file" accept="image/*" multiple id="pPhotos" onchange="previewPastPhotos(this.files)"/>
+          <label>Banner Photo <span style="font-weight:400;color:#94a3b8">(optional)</span></label>
+          <div id="pBannerPreview"></div>
+          <div class="upload-zone" style="margin:0;padding:16px 20px">
+            <input type="file" accept="image/*" id="pBanner" onchange="previewBanner(this,'pBannerPreview')"/>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            <p>Click or drag photos here</p>
+            <p>Click or drag a banner image</p><div class="accepted">PNG, JPG, WEBP • Recommended 1200×420px</div>
           </div>
-          <div id="pPhotosPreview" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;"></div>
         </div>
         <div class="form-actions">
           <button class="btn btn-success" onclick="addEvent('past')">Save Event</button>
@@ -365,7 +378,29 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
       <div id="pastList"></div>
     </div>
 
-    <!-- GALLERY -->
+    <!-- ── REGISTRATIONS ─────────────────────────── -->
+    <div class="sec" id="secRegistrations">
+      <div class="sec-head">
+        <h2>Event Registrations</h2>
+        <span class="text-sm" id="regCount"></span>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="font-size:.82rem;font-weight:600;color:#475569;margin-right:8px;">Filter by event:</label>
+        <select id="regEventFilter" onchange="filterRegistrations()" style="padding:6px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:.86rem;outline:none;">
+          <option value="">All events</option>
+        </select>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Event</th><th>Name</th><th>Email</th><th>Phone</th><th>Organisation</th><th>Message</th></tr>
+          </thead>
+          <tbody id="registrationsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── GALLERY ───────────────────────────────── -->
     <div class="sec" id="secGallery">
       <div class="sec-head">
         <h2>Photo Gallery</h2>
@@ -380,7 +415,7 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
       <div class="photo-grid" id="galleryGrid"></div>
     </div>
 
-    <!-- FORM SUBMISSIONS -->
+    <!-- ── FORM SUBMISSIONS ──────────────────────── -->
     <div class="sec" id="secSubmissions">
       <div class="sec-head">
         <h2>Form Submissions</h2>
@@ -389,29 +424,22 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
       <div class="tbl-wrap">
         <table>
           <thead>
-            <tr>
-              <th>Date</th><th>Type</th><th>Name</th><th>Email</th>
-              <th>Affiliation / Role</th><th>Interests / Message</th><th>ACM #</th>
-            </tr>
+            <tr><th>Date</th><th>Type</th><th>Name</th><th>Email</th><th>Affiliation / Role</th><th>Interests / Message</th><th>ACM #</th></tr>
           </thead>
           <tbody id="submissionsBody"></tbody>
         </table>
       </div>
     </div>
 
-    <!-- ADMIN SETTINGS -->
+    <!-- ── ADMIN SETTINGS ────────────────────────── -->
     <div class="sec" id="secAdmins">
-      <div class="sec-head">
-        <h2>Admin Settings</h2>
-      </div>
+      <div class="sec-head"><h2>Admin Settings</h2></div>
 
-      <!-- All admins -->
       <div style="background:#fff;border-radius:12px;padding:22px;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:18px">
         <h3 style="font-size:1rem;color:#0d1b2a;margin-bottom:14px">All Administrators</h3>
         <div id="adminsList"></div>
       </div>
 
-      <!-- Create admin -->
       <div style="background:#fff;border-radius:12px;padding:22px;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:18px">
         <h3 style="font-size:1rem;color:#0d1b2a;margin-bottom:14px">Create New Admin</h3>
         <div class="form-row">
@@ -421,7 +449,6 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
         <button class="btn btn-success btn-sm" onclick="createAdmin()">Create Admin Account</button>
       </div>
 
-      <!-- Change password -->
       <div style="background:#fff;border-radius:12px;padding:22px;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:18px">
         <h3 style="font-size:1rem;color:#0d1b2a;margin-bottom:14px">Change My Password</h3>
         <div class="form-row">
@@ -431,10 +458,9 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
         <button class="btn btn-primary btn-sm" onclick="changePassword()">Update Password</button>
       </div>
 
-      <!-- Delete account -->
       <div class="danger-zone">
         <h4>⚠ Delete My Account</h4>
-        <p>This permanently removes your admin account. You will be logged out immediately. Ensure at least one other admin exists before proceeding.</p>
+        <p>This permanently removes your admin account. Ensure at least one other admin exists first.</p>
         <div class="form-row" style="max-width:400px">
           <div class="field"><label>Confirm your password</label><input type="password" id="delConfirmPass" placeholder="Enter your password"/></div>
         </div>
@@ -445,34 +471,31 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
   </div><!-- end main-area -->
 </div><!-- end dashPage -->
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
 // ════════════════════════════════════════════════
 // CONFIG
 // ════════════════════════════════════════════════
-const SUPA_URL = 'https://rfvbyguseudzomeoozmy.supabase.co';
-const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJmdmJ5Z3VzZXVkem9tZW9vem15Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2NjkwOTEsImV4cCI6MjA4OTI0NTA5MX0.OHQBtNbRboL5aFI7fZ-H7lP88WvaMuH-_R4fFLoK70Q';
-const db = window.supabase.createClient(SUPA_URL, SUPA_KEY);
-const bc = dcodeIO.bcrypt;
+const SUPA_URL = 'https://hwiwkeiavzamepsoercx.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3aXdrZWlhdnphbWVwc29lcmN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNjg2NTUsImV4cCI6MjA4OTg0NDY1NX0.kJkYQEU-13m0Qw1YJoq4dPx1sLwDWya_V0RvHQeS9nI';
+const db     = window.supabase.createClient(SUPA_URL, SUPA_KEY);
+const bc     = dcodeIO.bcrypt;
 const BUCKET = 'acm-media';
 let currentAdmin = null;
+let allRegistrations = []; // cached for filter
+let allEvents = [];        // cached for registration filter dropdown
 
 // ════════════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════════════
 async function init() {
-  // Check if first time (no admins, or table doesn't exist yet)
   const { data, error } = await db.from('admins').select('id').limit(1);
   if (error || !data || data.length === 0) {
     document.getElementById('setupBox').style.display = 'block';
-    if (error) {
-      document.getElementById('setupMsg').textContent =
-        'Database tables not found. Please run supabase-setup.sql in your Supabase SQL Editor first, then click the button below.';
-    }
+    if (error) document.getElementById('setupMsg').textContent =
+      'Database tables not found. Run supabase-setup.sql in the Supabase SQL Editor first, then click below.';
   }
-  // Restore session
   const s = localStorage.getItem('acm_admin');
   if (s) {
     try {
@@ -497,17 +520,13 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
   err.textContent = '';
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span> Signing in…';
-
   const user = document.getElementById('lu').value.trim();
   const pass = document.getElementById('lp').value;
-
   try {
     const { data, error } = await db.from('admins').select('*').eq('username', user).single();
     if (error || !data) { err.textContent = 'Invalid username or password.'; return; }
-
     const match = await bc.compare(pass, data.password_hash);
     if (!match) { err.textContent = 'Invalid username or password.'; return; }
-
     currentAdmin = { id: data.id, username: data.username, ts: Date.now() };
     localStorage.setItem('acm_admin', JSON.stringify(currentAdmin));
     enterDashboard();
@@ -520,19 +539,14 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 });
 
 async function firstTimeSetup() {
-  if (!confirm('Create initial admin: surya.rimmalapudi with default password?')) return;
+  if (!confirm('Create initial admin: surya.rimmalapudi with password abc123?')) return;
   try {
-    const hash = await bc.hash('svr9$9SVR', 10);
+    const hash = await bc.hash('abc123', 10);
     const { error } = await db.from('admins').insert([{ username: 'surya.rimmalapudi', password_hash: hash }]);
-    if (error) {
-      alert('Setup failed: ' + error.message + '\n\nMake sure you have run supabase-setup.sql in the Supabase SQL Editor first.');
-      return;
-    }
+    if (error) { alert('Setup failed: ' + error.message); return; }
     document.getElementById('setupBox').style.display = 'none';
     toast('Admin account created! You can now log in.', 'success');
-  } catch(ex) {
-    alert('Setup failed: ' + ex.message);
-  }
+  } catch(ex) { alert('Setup failed: ' + ex.message); }
 }
 
 function logout() {
@@ -551,6 +565,7 @@ function enterDashboard() {
   loadOverview();
   loadEvents('upcoming');
   loadEvents('past');
+  loadRegistrations();
   loadGallery();
   loadSubmissions();
   loadAdmins();
@@ -563,62 +578,71 @@ function showSec(name) {
   document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('sec' + name.charAt(0).toUpperCase() + name.slice(1)).classList.add('active');
-  event.currentTarget && event.currentTarget.classList.add('active');
-  // Manually set active nav item
   document.querySelectorAll('.nav-item').forEach(n => {
-    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + name + "'")) {
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + name + "'"))
       n.classList.add('active');
-    }
   });
 }
 
 function toggleAddPanel(id) {
   const p = document.getElementById(id);
   p.classList.toggle('open');
-  if (p.classList.contains('open')) p.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  if (p.classList.contains('open')) p.scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
 
 // ════════════════════════════════════════════════
 // OVERVIEW
 // ════════════════════════════════════════════════
 async function loadOverview() {
-  const [up, pa, ga, su] = await Promise.all([
-    db.from('events').select('id', { count: 'exact' }).eq('type', 'upcoming'),
-    db.from('events').select('id', { count: 'exact' }).eq('type', 'past'),
-    db.from('gallery_photos').select('id', { count: 'exact' }),
-    db.from('form_submissions').select('id', { count: 'exact' }),
+  const [up, pa, re, ga, su] = await Promise.all([
+    db.from('events').select('id', { count:'exact', head:true }).eq('type','upcoming'),
+    db.from('events').select('id', { count:'exact', head:true }).eq('type','past'),
+    db.from('event_registrations').select('id', { count:'exact', head:true }),
+    db.from('gallery_photos').select('id', { count:'exact', head:true }),
+    db.from('form_submissions').select('id', { count:'exact', head:true }),
   ]);
-  document.getElementById('stUpcoming').textContent = up.count ?? 0;
-  document.getElementById('stPast').textContent = pa.count ?? 0;
-  document.getElementById('stGallery').textContent = ga.count ?? 0;
-  document.getElementById('stSubmissions').textContent = su.count ?? 0;
+  document.getElementById('stUpcoming').textContent     = up.count ?? 0;
+  document.getElementById('stPast').textContent         = pa.count ?? 0;
+  document.getElementById('stRegistrations').textContent = re.count ?? 0;
+  document.getElementById('stGallery').textContent      = ga.count ?? 0;
+  document.getElementById('stSubmissions').textContent  = su.count ?? 0;
 }
 
 // ════════════════════════════════════════════════
-// EVENTS
+// EVENTS — LOAD & RENDER
 // ════════════════════════════════════════════════
 async function loadEvents(type) {
   const listId = type === 'upcoming' ? 'upcomingList' : 'pastList';
   const container = document.getElementById(listId);
   container.innerHTML = '<div class="empty"><p>Loading…</p></div>';
-
-  const { data, error } = await db.from('events').select('*, event_photos(*)').eq('type', type).order('event_date', { ascending: type === 'upcoming' });
+  const { data, error } = await db.from('events').select('*, event_photos(*)')
+    .eq('type', type).order('display_order', { ascending: true }).order('event_date', { ascending: type === 'upcoming' });
   if (error || !data || data.length === 0) {
     container.innerHTML = '<div class="empty"><p>No ' + type + ' events yet.</p></div>';
     return;
   }
   container.innerHTML = data.map(ev => renderEventCard(ev)).join('');
+  // Cache for registrations filter
+  if (type === 'upcoming') allEvents = [...(allEvents.filter(e => e.type !== 'upcoming')), ...data];
+  if (type === 'past')     allEvents = [...(allEvents.filter(e => e.type !== 'past')), ...data];
+  rebuildEventFilter();
 }
 
 function renderEventCard(ev) {
   const dateStr = ev.event_date ? new Date(ev.event_date + 'T00:00:00').toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' }) : 'No date';
   const photoCount = (ev.event_photos || []).length;
+  const bannerThumb = ev.banner_url
+    ? `<img src="${ev.banner_url}" style="width:56px;height:40px;object-fit:cover;border-radius:6px;border:2px solid #e2e8f0;flex-shrink:0;" alt="banner"/>`
+    : '';
   return `
   <div class="event-card" id="evcard_${ev.id}">
     <div class="event-card-head" onclick="toggleEv('${ev.id}')">
-      <div style="flex:1">
-        <div class="ec-title">${esc(ev.title)}</div>
-        <div class="ec-meta">${dateStr} • ${esc(ev.location || 'No location')} • ${photoCount} photo${photoCount !== 1 ? 's' : ''}</div>
+      <div style="display:flex;align-items:center;gap:12px;flex:1;min-width:0;">
+        ${bannerThumb}
+        <div style="min-width:0;">
+          <div class="ec-title">${esc(ev.title)}</div>
+          <div class="ec-meta">${dateStr} · ${esc(ev.location || 'No location')} · ${photoCount} photo${photoCount !== 1 ? 's' : ''} · order: ${ev.display_order ?? 0}</div>
+        </div>
       </div>
       <div class="ec-actions" onclick="event.stopPropagation()">
         <button class="btn btn-ghost btn-sm" onclick="toggleEv('${ev.id}')">Manage</button>
@@ -628,6 +652,7 @@ function renderEventCard(ev) {
     <div class="event-body" id="evbody_${ev.id}">
       <div class="ev-tabs">
         <div class="ev-tab active" onclick="evTab('${ev.id}','details',this)">Details</div>
+        <div class="ev-tab" onclick="evTab('${ev.id}','banner',this)">Banner</div>
         <div class="ev-tab" onclick="evTab('${ev.id}','photos',this)">Photos</div>
         <div class="ev-tab" onclick="evTab('${ev.id}','article',this)">Article</div>
       </div>
@@ -643,13 +668,16 @@ function renderEventCard(ev) {
           <div class="field"><label>End Time</label><input id="ed_end_${ev.id}" value="${esc(ev.end_time)}"/></div>
           <div class="field"><label>Mode</label>
             <select id="ed_mode_${ev.id}">
-              <option ${ev.mode === 'In-person only' ? 'selected' : ''}>In-person only</option>
-              <option ${ev.mode === 'Virtual only' ? 'selected' : ''}>Virtual only</option>
-              <option ${ev.mode === 'Hybrid' ? 'selected' : ''}>Hybrid</option>
+              <option ${ev.mode==='In-person only'?'selected':''}>In-person only</option>
+              <option ${ev.mode==='Virtual only'?'selected':''}>Virtual only</option>
+              <option ${ev.mode==='Hybrid'?'selected':''}>Hybrid</option>
             </select>
           </div>
         </div>
-        <div class="field"><label>Location</label><input id="ed_loc_${ev.id}" value="${esc(ev.location)}"/></div>
+        <div class="form-row">
+          <div class="field"><label>Location</label><input id="ed_loc_${ev.id}" value="${esc(ev.location)}"/></div>
+          <div class="field"><label>Display Order</label><input type="number" id="ed_order_${ev.id}" value="${ev.display_order ?? 0}" min="0"/></div>
+        </div>
         <div class="form-row">
           <div class="field"><label>Speaker Name</label><input id="ed_spkname_${ev.id}" value="${esc(ev.speaker_name)}"/></div>
           <div class="field"><label>Speaker Org</label><input id="ed_spkorg_${ev.id}" value="${esc(ev.speaker_org)}"/></div>
@@ -664,18 +692,37 @@ function renderEventCard(ev) {
         </div>
       </div>
 
+      <!-- BANNER TAB -->
+      <div class="ev-tab-pane" id="evtab_${ev.id}_banner">
+        <div style="margin-top:4px;">
+          ${ev.banner_url
+            ? `<img src="${ev.banner_url}" class="banner-preview" id="bannerImg_${ev.id}" alt="Current banner"/>`
+            : `<div class="banner-preview-placeholder" id="bannerImg_${ev.id}">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+               </div>`}
+          <div class="upload-zone" style="margin:0;padding:16px 20px">
+            <input type="file" accept="image/*" onchange="uploadBanner('${ev.id}','${ev.type}',this,'${esc(ev.banner_path || '')}')"/>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <p>Upload new banner photo</p><div class="accepted">Recommended 1200×420px</div>
+          </div>
+          ${ev.banner_url
+            ? `<button class="btn btn-danger btn-sm" style="margin-top:10px;" onclick="deleteBanner('${ev.id}','${ev.type}','${esc(ev.banner_path || '')}')">Remove Banner</button>`
+            : ''}
+        </div>
+      </div>
+
       <!-- PHOTOS TAB -->
       <div class="ev-tab-pane" id="evtab_${ev.id}_photos">
         <div class="upload-zone" style="margin-top:0">
           <input type="file" accept="image/*" multiple onchange="uploadEventPhotos('${ev.id}', this.files)"/>
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          <p>Upload photos for this event</p>
+          <p>Upload photos for this event (shown in the article page)</p>
         </div>
         <div class="photo-grid" id="evphotos_${ev.id}">
           ${(ev.event_photos || []).map(p => `
             <div class="photo-thumb" id="ephumb_${p.id}">
               <img src="${p.url}" alt="Event photo" loading="lazy"/>
-              <button class="photo-del" onclick="deleteEventPhoto('${p.id}','${p.storage_path}','${ev.id}','${ev.type}')">
+              <button class="photo-del" onclick="deleteEventPhoto('${p.id}','${p.storage_path}','${ev.id}')">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               </button>
             </div>`).join('')}
@@ -684,10 +731,10 @@ function renderEventCard(ev) {
 
       <!-- ARTICLE TAB -->
       <div class="ev-tab-pane" id="evtab_${ev.id}_article">
-        <div class="field">
+        <div class="field" style="margin-top:4px;">
           <label>Article / Write-up</label>
-          <textarea id="ed_article_${ev.id}" style="min-height:200px">${esc(ev.article_text)}</textarea>
-          <div class="hint">This article text will appear on the public events page below the event details.</div>
+          <textarea id="ed_article_${ev.id}" style="min-height:240px">${esc(ev.article_text)}</textarea>
+          <div class="hint">This full article will appear on the dedicated article page when visitors click "Read Article" on the Events page.</div>
         </div>
         <div class="form-actions">
           <button class="btn btn-success btn-sm" onclick="saveArticle('${ev.id}','${ev.type}')">Save Article</button>
@@ -698,8 +745,7 @@ function renderEventCard(ev) {
 }
 
 function toggleEv(id) {
-  const body = document.getElementById('evbody_' + id);
-  body.classList.toggle('open');
+  document.getElementById('evbody_' + id).classList.toggle('open');
 }
 
 function evTab(evId, tabName, el) {
@@ -710,81 +756,70 @@ function evTab(evId, tabName, el) {
   document.getElementById('evtab_' + evId + '_' + tabName).classList.add('active');
 }
 
+// ════════════════════════════════════════════════
+// ADD EVENT
+// ════════════════════════════════════════════════
 async function addEvent(type) {
   const p = type === 'upcoming' ? 'u' : 'p';
   const title = document.getElementById(p + 'Title').value.trim();
   if (!title) { toast('Title is required', 'error'); return; }
+
   const payload = {
     type,
     title,
-    event_date:   document.getElementById(p + 'Date').value || null,
-    start_time:   document.getElementById(p + 'Start').value,
-    end_time:     document.getElementById(p + 'End').value,
-    mode:         document.getElementById(p + 'Mode').value,
-    location:     document.getElementById(p + 'Loc').value,
-    speaker_name: document.getElementById(p + 'SpkName').value,
-    speaker_org:  document.getElementById(p + 'SpkOrg').value,
-    host_name:    document.getElementById(p + 'HostName').value,
-    host_org:     document.getElementById(p + 'HostOrg').value,
-    description:  document.getElementById(p + 'Desc').value,
+    event_date:    document.getElementById(p + 'Date').value || null,
+    start_time:    document.getElementById(p + 'Start').value,
+    end_time:      document.getElementById(p + 'End').value,
+    mode:          document.getElementById(p + 'Mode').value,
+    location:      document.getElementById(p + 'Loc').value,
+    speaker_name:  document.getElementById(p + 'SpkName').value,
+    speaker_org:   document.getElementById(p + 'SpkOrg').value,
+    host_name:     document.getElementById(p + 'HostName').value,
+    host_org:      document.getElementById(p + 'HostOrg').value,
+    description:   document.getElementById(p + 'Desc').value,
+    display_order: parseInt(document.getElementById(p === 'u' ? 'uOrder' : 'pOrder')?.value || '0', 10) || 0,
   };
-  // Insert and get back the new event's ID so we can attach photos
+
   const { data: inserted, error } = await db.from('events').insert([payload]).select().single();
   if (error) { toast('Error: ' + error.message, 'error'); return; }
 
-  // Upload photos if any were selected (past events only, but works for both)
-  const photoInput = document.getElementById(p + 'Photos');
-  if (photoInput && photoInput.files.length > 0) {
-    toast('Event saved! Uploading ' + photoInput.files.length + ' photo(s)…');
-    await uploadEventPhotos(inserted.id, photoInput.files);
-    photoInput.value = '';
-    const preview = document.getElementById(p + 'PhotosPreview');
-    if (preview) preview.innerHTML = '';
+  // Upload banner if selected
+  const bannerInput = document.getElementById(p + 'Banner');
+  if (bannerInput && bannerInput.files.length > 0) {
+    toast('Event saved! Uploading banner…');
+    await uploadBannerForNew(inserted.id, type, bannerInput.files[0]);
+    bannerInput.value = '';
+    document.getElementById(p + 'BannerPreview').innerHTML = '';
   } else {
     toast('Event added!', 'success');
   }
 
   toggleAddPanel('add' + (type === 'upcoming' ? 'Upcoming' : 'Past') + 'Panel');
-  // Clear fields
-  ['Title','Date','Start','End','Loc','SpkName','SpkOrg','HostName','HostOrg','Desc'].forEach(f => { const el = document.getElementById(p+f); if(el) el.value = ''; });
+  ['Title','Date','Start','End','Loc','SpkName','SpkOrg','HostName','HostOrg','Desc'].forEach(f => {
+    const el = document.getElementById(p + f); if (el) el.value = '';
+  });
+  if (document.getElementById(p === 'u' ? 'uOrder' : 'pOrder')) document.getElementById(p === 'u' ? 'uOrder' : 'pOrder').value = '0';
   await loadEvents(type);
   await loadOverview();
 }
 
-// Preview thumbnails for photos selected in the Add Past Event form
-function previewPastPhotos(files) {
-  const preview = document.getElementById('pPhotosPreview');
-  if (!preview) return;
-  preview.innerHTML = '';
-  Array.from(files).forEach(file => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      const img = document.createElement('img');
-      img.src = e.target.result;
-      img.style.cssText = 'width:80px;height:60px;object-fit:cover;border-radius:6px;border:2px solid #e2e8f0;';
-      preview.appendChild(img);
-    };
-    reader.readAsDataURL(file);
-  });
-  const label = document.createElement('span');
-  label.textContent = files.length + ' photo' + (files.length !== 1 ? 's' : '') + ' selected';
-  label.style.cssText = 'align-self:center;font-size:0.82rem;color:#64748b;margin-left:4px;';
-  preview.appendChild(label);
-}
-
+// ════════════════════════════════════════════════
+// SAVE / DELETE EVENT DETAILS
+// ════════════════════════════════════════════════
 async function saveEventDetails(id, type) {
   const updates = {
-    title:        document.getElementById('ed_title_' + id).value.trim(),
-    event_date:   document.getElementById('ed_date_' + id).value || null,
-    start_time:   document.getElementById('ed_start_' + id).value,
-    end_time:     document.getElementById('ed_end_' + id).value,
-    mode:         document.getElementById('ed_mode_' + id).value,
-    location:     document.getElementById('ed_loc_' + id).value,
-    speaker_name: document.getElementById('ed_spkname_' + id).value,
-    speaker_org:  document.getElementById('ed_spkorg_' + id).value,
-    host_name:    document.getElementById('ed_hostname_' + id).value,
-    host_org:     document.getElementById('ed_hostorg_' + id).value,
-    description:  document.getElementById('ed_desc_' + id).value,
+    title:         document.getElementById('ed_title_' + id).value.trim(),
+    event_date:    document.getElementById('ed_date_' + id).value || null,
+    start_time:    document.getElementById('ed_start_' + id).value,
+    end_time:      document.getElementById('ed_end_' + id).value,
+    mode:          document.getElementById('ed_mode_' + id).value,
+    location:      document.getElementById('ed_loc_' + id).value,
+    display_order: parseInt(document.getElementById('ed_order_' + id).value || '0', 10) || 0,
+    speaker_name:  document.getElementById('ed_spkname_' + id).value,
+    speaker_org:   document.getElementById('ed_spkorg_' + id).value,
+    host_name:     document.getElementById('ed_hostname_' + id).value,
+    host_org:      document.getElementById('ed_hostorg_' + id).value,
+    description:   document.getElementById('ed_desc_' + id).value,
   };
   const { error } = await db.from('events').update(updates).eq('id', id);
   if (error) { toast('Save failed: ' + error.message, 'error'); return; }
@@ -809,26 +844,79 @@ async function deleteEvent(id, type) {
 }
 
 // ════════════════════════════════════════════════
+// BANNER UPLOAD / DELETE
+// ════════════════════════════════════════════════
+function previewBanner(input, previewId) {
+  const wrap = document.getElementById(previewId);
+  if (!input.files.length) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    wrap.innerHTML = `<img src="${e.target.result}" class="banner-preview" alt="Banner preview"/>`;
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+async function uploadBannerForNew(eventId, type, file) {
+  const ext  = file.name.split('.').pop();
+  const path = 'event-banners/' + eventId + '_banner.' + ext;
+  const { error: upErr } = await db.storage.from(BUCKET).upload(path, file, { upsert: true });
+  if (upErr) { toast('Banner upload failed: ' + upErr.message, 'error'); return; }
+  const { data: { publicUrl } } = db.storage.from(BUCKET).getPublicUrl(path);
+  await db.from('events').update({ banner_url: publicUrl, banner_path: path }).eq('id', eventId);
+  toast('Event and banner saved!', 'success');
+}
+
+async function uploadBanner(eventId, type, input, oldPath) {
+  if (!input.files.length) return;
+  const file = input.files[0];
+  toast('Uploading banner…');
+  // Remove old banner file if it exists
+  if (oldPath) await db.storage.from(BUCKET).remove([oldPath]);
+  const ext  = file.name.split('.').pop();
+  const path = 'event-banners/' + eventId + '_banner.' + ext;
+  const { error: upErr } = await db.storage.from(BUCKET).upload(path, file, { upsert: true });
+  if (upErr) { toast('Upload failed: ' + upErr.message, 'error'); return; }
+  const { data: { publicUrl } } = db.storage.from(BUCKET).getPublicUrl(path);
+  const { error: dbErr } = await db.from('events').update({ banner_url: publicUrl, banner_path: path }).eq('id', eventId);
+  if (dbErr) { toast('DB error: ' + dbErr.message, 'error'); return; }
+  // Update UI
+  const imgEl = document.getElementById('bannerImg_' + eventId);
+  if (imgEl) {
+    const img = document.createElement('img');
+    img.src = publicUrl; img.className = 'banner-preview'; img.id = 'bannerImg_' + eventId; img.alt = 'Banner';
+    imgEl.replaceWith(img);
+  }
+  toast('Banner updated!', 'success');
+  await loadEvents(type);
+}
+
+async function deleteBanner(eventId, type, storagePath) {
+  if (!confirm('Remove this banner photo?')) return;
+  if (storagePath) await db.storage.from(BUCKET).remove([storagePath]);
+  await db.from('events').update({ banner_url: null, banner_path: null }).eq('id', eventId);
+  toast('Banner removed.', 'success');
+  await loadEvents(type);
+}
+
+// ════════════════════════════════════════════════
 // EVENT PHOTOS
 // ════════════════════════════════════════════════
 async function uploadEventPhotos(eventId, files) {
   if (!files || files.length === 0) return;
   toast('Uploading ' + files.length + ' photo(s)…');
   for (const file of files) {
-    const path = 'events/' + eventId + '/' + Date.now() + '_' + file.name.replace(/\s/g,'_');
-    const { data: upData, error: upErr } = await db.storage.from(BUCKET).upload(path, file, { upsert: true });
+    const path = 'event-photos/' + eventId + '/' + Date.now() + '_' + file.name.replace(/\s/g,'_');
+    const { error: upErr } = await db.storage.from(BUCKET).upload(path, file, { upsert: true });
     if (upErr) { toast('Upload failed: ' + upErr.message, 'error'); continue; }
     const { data: { publicUrl } } = db.storage.from(BUCKET).getPublicUrl(path);
-    const { error: dbErr } = await db.from('event_photos').insert([{ event_id: eventId, url: publicUrl, storage_path: path }]);
+    const { data: row, error: dbErr } = await db.from('event_photos').insert([{ event_id: eventId, url: publicUrl, storage_path: path }]).select().single();
     if (dbErr) { toast('DB error: ' + dbErr.message, 'error'); continue; }
-    // Add to grid immediately
     const grid = document.getElementById('evphotos_' + eventId);
     if (grid) {
-      const photoId = 'temp_' + Date.now();
       grid.insertAdjacentHTML('beforeend', `
-        <div class="photo-thumb" id="ephumb_${photoId}">
+        <div class="photo-thumb" id="ephumb_${row.id}">
           <img src="${publicUrl}" alt="Event photo"/>
-          <button class="photo-del" onclick="deleteEventPhoto('${photoId}','${path}','${eventId}','')">
+          <button class="photo-del" onclick="deleteEventPhoto('${row.id}','${path}','${eventId}')">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>`);
@@ -837,7 +925,7 @@ async function uploadEventPhotos(eventId, files) {
   toast('Photos uploaded!', 'success');
 }
 
-async function deleteEventPhoto(photoId, storagePath, eventId, type) {
+async function deleteEventPhoto(photoId, storagePath, eventId) {
   if (!confirm('Remove this photo?')) return;
   if (storagePath) await db.storage.from(BUCKET).remove([storagePath]);
   await db.from('event_photos').delete().eq('id', photoId);
@@ -846,12 +934,59 @@ async function deleteEventPhoto(photoId, storagePath, eventId, type) {
 }
 
 // ════════════════════════════════════════════════
+// REGISTRATIONS
+// ════════════════════════════════════════════════
+async function loadRegistrations() {
+  const { data, count } = await db.from('event_registrations')
+    .select('*, events(title)', { count:'exact' })
+    .order('created_at', { ascending: false });
+  document.getElementById('regCount').textContent = (count || 0) + ' registration(s)';
+  allRegistrations = data || [];
+  renderRegistrations(allRegistrations);
+}
+
+function rebuildEventFilter() {
+  const sel = document.getElementById('regEventFilter');
+  const current = sel.value;
+  const options = allEvents.map(e => `<option value="${e.id}">${esc(e.title)}</option>`).join('');
+  sel.innerHTML = '<option value="">All events</option>' + options;
+  sel.value = current;
+}
+
+function filterRegistrations() {
+  const eventId = document.getElementById('regEventFilter').value;
+  const filtered = eventId ? allRegistrations.filter(r => r.event_id === eventId) : allRegistrations;
+  renderRegistrations(filtered);
+}
+
+function renderRegistrations(data) {
+  const tbody = document.getElementById('registrationsBody');
+  if (!data || data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#94a3b8;padding:32px">No registrations yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = data.map(r => {
+    const d = new Date(r.created_at).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+    const eventTitle = (r.events && r.events.title) ? r.events.title : '—';
+    return `<tr>
+      <td style="white-space:nowrap">${d}</td>
+      <td class="td-wrap" style="max-width:180px">${esc(eventTitle)}</td>
+      <td>${esc((r.first_name || '') + ' ' + (r.last_name || '')).trim() || '—'}</td>
+      <td style="color:#0073b7">${esc(r.email)}</td>
+      <td>${esc(r.phone) || '—'}</td>
+      <td>${esc(r.affiliation) || '—'}</td>
+      <td class="td-wrap" style="max-width:200px">${esc(r.message) || '—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ════════════════════════════════════════════════
 // GALLERY
 // ════════════════════════════════════════════════
 async function loadGallery() {
   const grid = document.getElementById('galleryGrid');
   grid.innerHTML = '<div style="padding:20px;color:#94a3b8">Loading…</div>';
-  const { data, count } = await db.from('gallery_photos').select('*', { count: 'exact' }).order('created_at', { ascending: false });
+  const { data, count } = await db.from('gallery_photos').select('*', { count:'exact' }).order('created_at', { ascending: false });
   document.getElementById('galleryCount').textContent = (count || 0) + ' photo(s)';
   if (!data || data.length === 0) { grid.innerHTML = '<div class="empty"><p>No photos yet. Upload some above.</p></div>'; return; }
   grid.innerHTML = data.map(p => `
@@ -874,14 +1009,13 @@ async function uploadGalleryPhotos(files) {
     const { data: { publicUrl } } = db.storage.from(BUCKET).getPublicUrl(path);
     const { data: row, error: dbErr } = await db.from('gallery_photos').insert([{ url: publicUrl, storage_path: path }]).select().single();
     if (dbErr) { toast('DB error: ' + dbErr.message, 'error'); continue; }
-    // Prepend to grid
-    const html = `<div class="photo-thumb" id="gphumb_${row.id}">
-      <img src="${publicUrl}" loading="lazy"/>
-      <button class="photo-del" onclick="deleteGalleryPhoto('${row.id}','${path}')">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>`;
-    grid.insertAdjacentHTML('afterbegin', html);
+    grid.insertAdjacentHTML('afterbegin', `
+      <div class="photo-thumb" id="gphumb_${row.id}">
+        <img src="${publicUrl}" loading="lazy"/>
+        <button class="photo-del" onclick="deleteGalleryPhoto('${row.id}','${path}')">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>`);
   }
   toast('Gallery updated!', 'success');
   await loadOverview();
@@ -898,11 +1032,11 @@ async function deleteGalleryPhoto(id, storagePath) {
 }
 
 // ════════════════════════════════════════════════
-// SUBMISSIONS
+// FORM SUBMISSIONS
 // ════════════════════════════════════════════════
 async function loadSubmissions() {
   const tbody = document.getElementById('submissionsBody');
-  const { data, count } = await db.from('form_submissions').select('*', { count: 'exact' }).order('submitted_at', { ascending: false });
+  const { data, count } = await db.from('form_submissions').select('*', { count:'exact' }).order('submitted_at', { ascending: false });
   document.getElementById('subCount').textContent = (count || 0) + ' submission(s)';
   if (!data || data.length === 0) {
     tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#94a3b8;padding:32px">No submissions yet.</td></tr>';
@@ -910,9 +1044,9 @@ async function loadSubmissions() {
   }
   tbody.innerHTML = data.map(s => {
     const d = new Date(s.submitted_at).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
-    const name = s.type === 'membership' ? ((s.first_name || '') + ' ' + (s.last_name || '')).trim() : (s.first_name || s.last_name || '—');
+    const name   = s.type === 'membership' ? ((s.first_name || '') + ' ' + (s.last_name || '')).trim() : (s.first_name || s.last_name || '—');
     const detail = s.type === 'membership' ? ((s.affiliation || '') + (s.role ? ' · ' + s.role : '')) : (s.subject || '');
-    const msg = s.type === 'membership' ? (s.interests || '—') : (s.message || '—');
+    const msg    = s.type === 'membership' ? (s.interests || '—') : (s.message || '—');
     return `<tr>
       <td style="white-space:nowrap">${d}</td>
       <td><span class="badge badge-${s.type}">${s.type}</span></td>
@@ -963,8 +1097,7 @@ async function changePassword() {
   const current = document.getElementById('cpCurrent').value;
   const newPw   = document.getElementById('cpNew').value;
   if (!current || !newPw) { toast('Both fields are required.', 'error'); return; }
-  if (newPw.length < 6)   { toast('New password must be at least 6 characters.', 'error'); return; }
-  // Verify current password
+  if (newPw.length < 6) { toast('New password must be at least 6 characters.', 'error'); return; }
   const { data } = await db.from('admins').select('password_hash').eq('id', currentAdmin.id).single();
   const match = await bc.compare(current, data.password_hash);
   if (!match) { toast('Current password is incorrect.', 'error'); return; }
@@ -977,7 +1110,7 @@ async function changePassword() {
 }
 
 async function deleteAdmin(id, username) {
-  if (!confirm('Remove admin "' + username + '"? They will lose access immediately.')) return;
+  if (!confirm('Remove admin "' + username + '"?')) return;
   const { error } = await db.from('admins').delete().eq('id', id);
   if (error) { toast('Error: ' + error.message, 'error'); return; }
   toast('Admin "' + username + '" removed.', 'success');
@@ -987,14 +1120,12 @@ async function deleteAdmin(id, username) {
 async function deleteMyAccount() {
   const confirmPass = document.getElementById('delConfirmPass').value;
   if (!confirmPass) { toast('Enter your password to confirm.', 'error'); return; }
-  // Check there are other admins
   const { data: all } = await db.from('admins').select('id');
-  if (!all || all.length <= 1) { toast('Cannot delete: you are the only admin. Create another admin first.', 'error'); return; }
-  // Verify password
+  if (!all || all.length <= 1) { toast('Cannot delete: you are the only admin. Create another first.', 'error'); return; }
   const { data } = await db.from('admins').select('password_hash').eq('id', currentAdmin.id).single();
   const match = await bc.compare(confirmPass, data.password_hash);
   if (!match) { toast('Incorrect password.', 'error'); return; }
-  if (!confirm('This will permanently delete your account. Are you sure?')) return;
+  if (!confirm('Permanently delete your account?')) return;
   const { error } = await db.from('admins').delete().eq('id', currentAdmin.id);
   if (error) { toast('Error: ' + error.message, 'error'); return; }
   toast('Account deleted. Goodbye!', 'success');

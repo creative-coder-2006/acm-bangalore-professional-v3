@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Event Article — ACM Bangalore Professional Chapter</title>
+  <meta name="description" content="Read the full article and view photos from this ACM Bangalore Professional Chapter event." />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    /* ── ARTICLE HERO ──────────────────────────── */
+    .article-hero {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      background: linear-gradient(135deg, var(--navy) 0%, #1a4a72 100%);
+      overflow: hidden;
+    }
+    .article-hero__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.7;
+    }
+    .article-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(13,27,42,0.3) 0%, rgba(13,27,42,0.75) 100%);
+    }
+    .article-hero__content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 40px;
+    }
+    .article-hero__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin-bottom: 18px;
+      transition: color 0.2s;
+    }
+    .article-hero__back:hover { color: #fff; }
+    .article-hero__type {
+      display: inline-block;
+      background: rgba(0,115,183,0.5);
+      border: 1px solid rgba(77,184,255,0.4);
+      color: #7cc8f8;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .article-hero__title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      max-width: 800px;
+    }
+    .article-hero__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 14px;
+    }
+    .article-hero__meta-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.87rem;
+    }
+    .article-hero__meta-item svg { color: rgba(77,184,255,0.8); flex-shrink: 0; }
+
+    /* ── ARTICLE BODY ──────────────────────────── */
+    .article-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .article-speakers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 40px 0 0;
+    }
+    .article-speaker-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-200);
+      flex: 1;
+      min-width: 240px;
+    }
+    .article-speaker-card__avatar {
+      width: 44px; height: 44px;
+      background: var(--blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .article-speaker-card__role { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue); margin-bottom: 2px; }
+    .article-speaker-card__name { font-weight: 700; color: var(--navy); font-size: 0.95rem; }
+    .article-speaker-card__org  { font-size: 0.82rem; color: var(--gray-600); margin-top: 2px; }
+
+    .article-divider { border: none; border-top: 1px solid var(--gray-200); margin: 40px 0; }
+
+    .article-text {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--gray-700);
+      white-space: pre-line;
+    }
+    .article-text p { margin-bottom: 1.2em; }
+
+    /* ── PHOTO GALLERY ─────────────────────────── */
+    .photo-grid-article {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .photo-grid-article__item {
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: zoom-in;
+    }
+    .photo-grid-article__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .photo-grid-article__item:hover img { transform: scale(1.04); }
+
+    /* ── LIGHTBOX ──────────────────────────────── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .lightbox__close {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 1.6rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .lightbox__prev,
+    .lightbox__next {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox__prev { left: 16px; }
+    .lightbox__next { right: 16px; }
+
+    /* ── SKELETON LOADER ───────────────────────── */
+    .skel { background: var(--gray-100); border-radius: 8px; animation: shimmer 1.4s infinite; }
+
+    /* ── RESPONSIVE ────────────────────────────── */
+    @media (max-width: 768px) {
+      .article-hero { height: 320px; }
+      .article-hero__title { font-size: 1.7rem; }
+      .article-hero__content { padding: 24px 20px; }
+      .article-wrap { padding: 0 16px; }
+    }
+    @media (max-width: 560px) {
+      .article-hero__title { font-size: 1.4rem; }
+      .photo-grid-article { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAVIGATION ============ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">
+        <img src="assets/image1.png" alt="ACM Bangalore Chapter Logo" class="nav__logo" />
+        <div class="nav__name">ACM Bangalore<span>Professional Chapter</span></div>
+      </a>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
+        <li><a href="spotlight.html">Spotlight</a></li>
+        <li><a href="https://india.acm.org/membership" class="btn-join" target="_blank" rel="noopener">Join</a></li>
+      </ul>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============ HERO (dynamic) ============ -->
+  <div id="articleHero">
+    <!-- skeleton while loading -->
+    <div style="height:420px;background:var(--navy);display:flex;align-items:flex-end;padding:40px;">
+      <div>
+        <div class="skel" style="width:90px;height:22px;margin-bottom:16px;"></div>
+        <div class="skel" style="width:520px;max-width:80vw;height:44px;margin-bottom:14px;"></div>
+        <div class="skel" style="width:280px;height:18px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ARTICLE CONTENT ============ -->
+  <div class="section">
+    <div class="article-wrap">
+
+      <!-- Speaker/host cards -->
+      <div id="articleSpeakers"></div>
+
+      <hr class="article-divider" id="articleDivider" style="display:none;" />
+
+      <!-- Article text -->
+      <div id="articleTextWrap" style="display:none;">
+        <span class="section-label" style="margin-bottom:16px;">Article</span>
+        <div class="article-text" id="articleText"></div>
+      </div>
+
+      <!-- Event photos -->
+      <div id="articlePhotosWrap" style="display:none;margin-top:48px;">
+        <hr class="article-divider" />
+        <span class="section-label" style="margin-bottom:16px;">Event Photos</span>
+        <div class="photo-grid-article" id="articlePhotosGrid"></div>
+      </div>
+
+      <!-- Error / not found -->
+      <div id="articleError" style="display:none;text-align:center;padding:64px 20px;">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" style="color:var(--gray-400);display:block;margin:0 auto 20px;">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <h2 style="color:var(--navy);margin-bottom:10px;">Article not found</h2>
+        <p style="color:var(--gray-600);margin-bottom:24px;">This article doesn't exist or may have been removed.</p>
+        <a href="events.html" class="btn btn--primary">← Back to Events</a>
+      </div>
+
+      <!-- Back link (bottom) -->
+      <div id="articleBackBottom" style="display:none;margin-top:56px;padding-top:32px;border-top:1px solid var(--gray-200);">
+        <a href="events.html" class="btn btn--outline-blue">← Back to All Events</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <img src="assets/image1.png" alt="ACM Bangalore Logo" style="height:36px;width:auto;" />
+          </div>
+          <div class="footer__brand-name">ACM Bangalore Professional Chapter</div>
+          <p class="footer__tagline">Serving the computing professional and academic community in Bangalore through excellence and innovation.</p>
+          <div class="footer__social">
+            <a href="https://www.linkedin.com/in/acm-bangalore-professional-chapter-041b463b0/" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="https://www.meetup.com/acm-bangalore/" target="_blank" rel="noopener" aria-label="Meetup">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+            </a>
+            <a href="mailto:contact@acmbangalore.org" aria-label="Email">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="footer__heading">Quick Links</div>
+          <ul class="footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About ACM Bangalore</a></li>
+            <li><a href="events.html">Events &amp; Workshops</a></li>
+            <li><a href="spotlight.html">Member Spotlight</a></li>
+            <li><a href="https://india.acm.org/membership" target="_blank" rel="noopener">Join the Chapter</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Resources</div>
+          <ul class="footer__links">
+            <li><a href="https://www.acm.org/" target="_blank" rel="noopener">Global ACM</a></li>
+            <li><a href="https://india.acm.org/" target="_blank" rel="noopener">ACM India</a></li>
+            <li><a href="https://dl.acm.org/" target="_blank" rel="noopener">ACM Digital Library</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact">
+          <div class="footer__heading">Contact</div>
+          <p>Bangalore, Karnataka, India</p>
+          <div style="margin-top:16px;">
+            <div class="footer__heading">Follow Us</div>
+            <ul class="footer__links">
+              <li><a href="https://www.linkedin.com/in/acm-bangalore-professional-chapter-041b463b0/" target="_blank" rel="noopener">LinkedIn</a></li>
+              <li><a href="https://www.meetup.com/acm-bangalore/" target="_blank" rel="noopener">Meetup.com</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2024 ACM Bangalore Professional Chapter. All rights reserved.</p>
+        <div class="footer__bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="https://www.acm.org/" target="_blank" rel="noopener">acm.org</a>
+          <a href="admin.html" style="opacity:0.45;font-size:0.75rem;">Admin</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" onclick="closeLightbox()">&times;</button>
+    <button class="lightbox__prev" onclick="lbNav(-1)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <img id="lightboxImg" src="" alt="Event photo" />
+    <button class="lightbox__next" onclick="lbNav(1)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+  <script>
+    // ── NAV ─────────────────────────────────────────────────────────
+    document.getElementById('navToggle').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+
+    // ── SUPABASE ────────────────────────────────────────────────────
+    const SUPABASE_URL = 'https://hwiwkeiavzamepsoercx.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3aXdrZWlhdnphbWVwc29lcmN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNjg2NTUsImV4cCI6MjA4OTg0NDY1NX0.kJkYQEU-13m0Qw1YJoq4dPx1sLwDWya_V0RvHQeS9nI';
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // ── UTILITIES ───────────────────────────────────────────────────
+    function esc(s) {
+      if (!s) return '';
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    function fmtDate(str) {
+      if (!str) return '';
+      const d = new Date(str + 'T00:00:00');
+      return d.toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
+    }
+
+    // ── LIGHTBOX ────────────────────────────────────────────────────
+    let lbPhotos = [], lbIndex = 0;
+    function openLightbox(photos, index) {
+      lbPhotos = photos; lbIndex = index;
+      document.getElementById('lightboxImg').src = photos[index].url;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function lbNav(dir) {
+      lbIndex = (lbIndex + dir + lbPhotos.length) % lbPhotos.length;
+      document.getElementById('lightboxImg').src = lbPhotos[lbIndex].url;
+    }
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLightbox();
+    });
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft')  lbNav(-1);
+      if (e.key === 'ArrowRight') lbNav(1);
+    });
+
+    // ── LOAD ARTICLE ────────────────────────────────────────────────
+    async function loadArticle() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      if (!id) { showError(); return; }
+
+      // Fetch event + photos
+      const [evRes, photosRes] = await Promise.all([
+        sb.from('events').select('*').eq('id', id).eq('type', 'past').single(),
+        sb.from('event_photos').select('*').eq('event_id', id).order('display_order').order('created_at')
+      ]);
+
+      if (evRes.error || !evRes.data) { showError(); return; }
+      const ev = evRes.data;
+      const photos = photosRes.data || [];
+
+      // ── Update page title ──
+      document.title = ev.title + ' — ACM Bangalore';
+
+      // ── Build hero ──
+      const dateStr  = fmtDate(ev.event_date);
+      const timeStr  = [ev.start_time, ev.end_time].filter(Boolean).join(' – ');
+      const bannerBg = ev.banner_url
+        ? `<img class="article-hero__img" src="${esc(ev.banner_url)}" alt="${esc(ev.title)} banner" />`
+        : '';
+      document.getElementById('articleHero').innerHTML = `
+        <div class="article-hero">
+          ${bannerBg}
+          <div class="article-hero__overlay"></div>
+          <div class="article-hero__content">
+            <a href="events.html" class="article-hero__back">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+              Back to Events
+            </a>
+            <div class="article-hero__type">Past Event</div>
+            <h1 class="article-hero__title">${esc(ev.title)}</h1>
+            <div class="article-hero__meta">
+              ${dateStr ? `<div class="article-hero__meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                ${esc(dateStr)}</div>` : ''}
+              ${timeStr ? `<div class="article-hero__meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                ${esc(timeStr)} IST</div>` : ''}
+              ${ev.location ? `<div class="article-hero__meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                ${esc(ev.location)}</div>` : ''}
+              ${ev.mode ? `<div class="article-hero__meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                ${esc(ev.mode)}</div>` : ''}
+            </div>
+          </div>
+        </div>`;
+
+      // ── Speaker / host cards ──
+      const speakerCards = [];
+      const personSVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+      if (ev.speaker_name) speakerCards.push(`
+        <div class="article-speaker-card">
+          <div class="article-speaker-card__avatar">${personSVG}</div>
+          <div>
+            <div class="article-speaker-card__role">Speaker</div>
+            <div class="article-speaker-card__name">${esc(ev.speaker_name)}</div>
+            ${ev.speaker_org ? `<div class="article-speaker-card__org">${esc(ev.speaker_org)}</div>` : ''}
+          </div>
+        </div>`);
+      if (ev.host_name) speakerCards.push(`
+        <div class="article-speaker-card">
+          <div class="article-speaker-card__avatar" style="background:var(--navy);">${personSVG}</div>
+          <div>
+            <div class="article-speaker-card__role" style="color:var(--navy);">Host</div>
+            <div class="article-speaker-card__name">${esc(ev.host_name)}</div>
+            ${ev.host_org ? `<div class="article-speaker-card__org">${esc(ev.host_org)}</div>` : ''}
+          </div>
+        </div>`);
+      if (speakerCards.length > 0) {
+        document.getElementById('articleSpeakers').innerHTML =
+          `<div class="article-speakers">${speakerCards.join('')}</div>`;
+      }
+
+      // ── Article text ──
+      const hasArticle = !!(ev.article_text && ev.article_text.trim());
+      if (hasArticle) {
+        document.getElementById('articleDivider').style.display = '';
+        document.getElementById('articleTextWrap').style.display = '';
+        document.getElementById('articleText').textContent = ev.article_text;
+      }
+
+      // ── Event photos ──
+      if (photos.length > 0) {
+        document.getElementById('articlePhotosWrap').style.display = '';
+        document.getElementById('articlePhotosGrid').innerHTML = photos.map((p, i) => `
+          <div class="photo-grid-article__item" onclick="openLightbox(${JSON.stringify(photos)}, ${i})">
+            <img src="${esc(p.url)}" alt="${esc(p.caption || 'Event photo')}" loading="lazy" />
+          </div>`).join('');
+      }
+
+      // Show back link
+      document.getElementById('articleBackBottom').style.display = '';
+    }
+
+    function showError() {
+      document.getElementById('articleHero').innerHTML = `
+        <div style="height:200px;background:linear-gradient(135deg,var(--navy) 0%,#1a4a72 100%);"></div>`;
+      document.getElementById('articleError').style.display = 'block';
+    }
+
+    loadArticle();
+  </script>
+</body>
+</html>

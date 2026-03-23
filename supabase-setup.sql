@@ -1,114 +1,130 @@
--- ============================================================
--- ACM Bangalore Professional Chapter — Supabase Setup
--- Run this entire file in the Supabase SQL Editor
--- Project: rfvbyguseudzomeoozmy
--- ============================================================
+-- ════════════════════════════════════════════════════════════════
+-- ACM Bangalore Professional Chapter — Supabase Setup Script
+-- Paste this entire file into your Supabase SQL Editor and Run.
+-- ════════════════════════════════════════════════════════════════
 
--- ADMINS TABLE
+-- ── 1. ADMINS ────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS admins (
-  id          UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  username    TEXT UNIQUE NOT NULL,
-  password_hash TEXT NOT NULL,
-  created_at  TIMESTAMPTZ DEFAULT NOW(),
-  created_by  TEXT
+  id            uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  username      text UNIQUE NOT NULL,
+  password_hash text NOT NULL,
+  created_by    text,
+  created_at    timestamptz DEFAULT now()
 );
 
--- EVENTS TABLE
+-- ── 2. EVENTS ────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS events (
-  id           UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  type         TEXT NOT NULL CHECK (type IN ('upcoming','past')),
-  title        TEXT NOT NULL,
-  description  TEXT    DEFAULT '',
-  article_text TEXT    DEFAULT '',
-  event_date   DATE,
-  start_time   TEXT    DEFAULT '',
-  end_time     TEXT    DEFAULT '',
-  location     TEXT    DEFAULT '',
-  mode         TEXT    DEFAULT 'In-person',
-  speaker_name TEXT    DEFAULT '',
-  speaker_org  TEXT    DEFAULT '',
-  host_name    TEXT    DEFAULT '',
-  host_org     TEXT    DEFAULT '',
-  display_order INT   DEFAULT 0,
-  created_at   TIMESTAMPTZ DEFAULT NOW()
+  id            uuid    DEFAULT gen_random_uuid() PRIMARY KEY,
+  type          text    NOT NULL CHECK (type IN ('upcoming','past')),
+  title         text    NOT NULL,
+  description   text    DEFAULT '',
+  event_date    date,
+  start_time    text    DEFAULT '',
+  end_time      text    DEFAULT '',
+  location      text    DEFAULT '',
+  mode          text    DEFAULT 'In-person only',
+  speaker_name  text    DEFAULT '',
+  speaker_org   text    DEFAULT '',
+  host_name     text    DEFAULT '',
+  host_org      text    DEFAULT '',
+  banner_url    text,
+  banner_path   text,
+  article_text  text    DEFAULT '',
+  display_order integer DEFAULT 0,
+  created_at    timestamptz DEFAULT now()
 );
 
--- EVENT PHOTOS TABLE
+-- ── 3. EVENT PHOTOS ──────────────────────────────────────────────
+-- Photos shown in the article page of each past event
 CREATE TABLE IF NOT EXISTS event_photos (
-  id           UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  event_id     UUID NOT NULL REFERENCES events(id) ON DELETE CASCADE,
-  url          TEXT NOT NULL,
-  storage_path TEXT NOT NULL DEFAULT '',
-  created_at   TIMESTAMPTZ DEFAULT NOW()
+  id            uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  event_id      uuid NOT NULL REFERENCES events(id) ON DELETE CASCADE,
+  url           text NOT NULL,
+  storage_path  text DEFAULT '',
+  caption       text DEFAULT '',
+  display_order integer DEFAULT 0,
+  created_at    timestamptz DEFAULT now()
 );
 
--- GALLERY PHOTOS TABLE
+-- ── 4. EVENT REGISTRATIONS ───────────────────────────────────────
+-- Per-event sign-up submissions from the public events page
+CREATE TABLE IF NOT EXISTS event_registrations (
+  id          uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  event_id    uuid REFERENCES events(id) ON DELETE CASCADE,
+  first_name  text NOT NULL,
+  last_name   text NOT NULL,
+  email       text NOT NULL,
+  phone       text DEFAULT '',
+  affiliation text DEFAULT '',
+  message     text DEFAULT '',
+  created_at  timestamptz DEFAULT now()
+);
+
+-- ── 5. GALLERY PHOTOS ────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS gallery_photos (
-  id           UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  url          TEXT NOT NULL,
-  storage_path TEXT NOT NULL DEFAULT '',
-  caption      TEXT DEFAULT '',
-  created_at   TIMESTAMPTZ DEFAULT NOW()
+  id            uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  url           text NOT NULL,
+  storage_path  text DEFAULT '',
+  caption       text DEFAULT '',
+  display_order integer DEFAULT 0,
+  created_at    timestamptz DEFAULT now()
 );
 
--- FORM SUBMISSIONS TABLE
+-- ── 6. FORM SUBMISSIONS ──────────────────────────────────────────
+-- Membership applications and contact messages from join.html
 CREATE TABLE IF NOT EXISTS form_submissions (
-  id           UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  type         TEXT DEFAULT 'membership' CHECK (type IN ('membership','contact')),
-  first_name   TEXT,
-  last_name    TEXT,
-  email        TEXT NOT NULL,
-  affiliation  TEXT,
-  role         TEXT,
-  interests    TEXT,
-  acm_number   TEXT,
-  subject      TEXT,
-  message      TEXT,
-  submitted_at TIMESTAMPTZ DEFAULT NOW()
+  id           uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  type         text DEFAULT 'membership' CHECK (type IN ('membership','contact')),
+  first_name   text,
+  last_name    text,
+  email        text NOT NULL,
+  affiliation  text,
+  role         text,
+  interests    text,
+  acm_number   text,
+  subject      text,
+  message      text,
+  submitted_at timestamptz DEFAULT now()
 );
 
--- ============================================================
--- DISABLE ROW LEVEL SECURITY (static site uses anon key)
--- ============================================================
-ALTER TABLE admins          DISABLE ROW LEVEL SECURITY;
-ALTER TABLE events          DISABLE ROW LEVEL SECURITY;
-ALTER TABLE event_photos    DISABLE ROW LEVEL SECURITY;
-ALTER TABLE gallery_photos  DISABLE ROW LEVEL SECURITY;
-ALTER TABLE form_submissions DISABLE ROW LEVEL SECURITY;
+-- ── 7. DISABLE RLS (anon key drives everything via app-level auth) ─
+ALTER TABLE admins              DISABLE ROW LEVEL SECURITY;
+ALTER TABLE events              DISABLE ROW LEVEL SECURITY;
+ALTER TABLE event_photos        DISABLE ROW LEVEL SECURITY;
+ALTER TABLE event_registrations DISABLE ROW LEVEL SECURITY;
+ALTER TABLE gallery_photos      DISABLE ROW LEVEL SECURITY;
+ALTER TABLE form_submissions    DISABLE ROW LEVEL SECURITY;
 
--- Grant full access to anon role
-GRANT ALL ON admins          TO anon;
-GRANT ALL ON events          TO anon;
-GRANT ALL ON event_photos    TO anon;
-GRANT ALL ON gallery_photos  TO anon;
-GRANT ALL ON form_submissions TO anon;
+-- Grant anon role full access
+GRANT ALL ON admins              TO anon;
+GRANT ALL ON events              TO anon;
+GRANT ALL ON event_photos        TO anon;
+GRANT ALL ON event_registrations TO anon;
+GRANT ALL ON gallery_photos      TO anon;
+GRANT ALL ON form_submissions    TO anon;
 
--- ============================================================
--- SEED: Initial upcoming event (Fireside Chat)
--- ============================================================
-INSERT INTO events (type, title, description, event_date, start_time, end_time, location, mode, speaker_name, speaker_org, host_name, host_org)
+-- ── 8. INITIAL ADMIN ACCOUNT ─────────────────────────────────────
+-- username: surya.rimmalapudi  |  password: abc123
+INSERT INTO admins (username, password_hash)
 VALUES (
-  'upcoming',
-  'Transforming Solar PV Manufacturing with Industrial AI',
-  'An insightful fireside chat exploring how Artificial Intelligence is revolutionizing solar PV manufacturing processes at industrial scale — with implications for India''s clean energy future.',
-  '2026-03-28',
-  '11:00 AM',
-  '12:00 PM',
-  'Manipal Institute of Technology (MIT), MAHE Bangalore',
-  'In-person only',
-  'Kedar Kulkarni',
-  'Head, AI for New Energy — Reliance Industries Ltd.',
-  'Sameep Mehta',
-  'Distinguished Engineer — IBM Research India'
-);
+  'surya.rimmalapudi',
+  '$2b$10$nMZBZTOLNYpGwU0v4h3HUO4R3FCs3rbgW4CknW0NatsPgW9Aplomi'
+)
+ON CONFLICT (username) DO NOTHING;
 
--- ============================================================
--- STORAGE: After running this SQL, do the following manually:
+-- ════════════════════════════════════════════════════════════════
+-- STORAGE — do this manually in the Supabase Dashboard:
 --
--- 1. Go to Storage in your Supabase dashboard
--- 2. Click "New bucket"
--- 3. Name it exactly:  acm-media
--- 4. Check "Public bucket" → Save
+--  1. Go to Storage → New bucket
+--  2. Name: acm-media   |   Toggle "Public bucket" ON → Save
+--  3. Go to Storage → Policies → acm-media → New policy (for each):
 --
--- That's it! The admin dashboard handles all uploads.
--- ============================================================
+--     Name: public_select  | Operation: SELECT | Role: anon | Definition: true
+--     Name: anon_insert    | Operation: INSERT | Role: anon | Definition: true
+--     Name: anon_delete    | Operation: DELETE | Role: anon | Definition: true
+--
+-- Folder layout used by the app:
+--   acm-media/event-banners/<filename>
+--   acm-media/event-photos/<event_id>/<filename>
+--   acm-media/gallery/<filename>
+-- ════════════════════════════════════════════════════════════════

@@ -149,7 +149,7 @@
         <li><a href="about.html">About</a></li>
         <li><a href="events.html">Events</a></li>
         <li><a href="spotlight.html">Spotlight</a></li>
-        <li><a href="join.html" class="btn-join active">Join</a></li>
+        <li><a href="https://india.acm.org/membership" class="btn-join" target="_blank" rel="noopener">Join</a></li>
       </ul>
       <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -172,8 +172,13 @@
       <div class="join-layout">
         <!-- FORM -->
         <div class="form-card">
-          <h2>Membership Application</h2>
-          <p>Fill out the form below to express your interest in joining. We'll follow up with details on completing your membership.</p>
+          <div style="background:var(--teal-light);border-left:4px solid var(--teal);border-radius:var(--radius-sm);padding:18px 20px;margin-bottom:28px;">
+            <div style="font-size:0.8rem;font-weight:700;color:var(--teal-dark);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">ACM Professional Membership</div>
+            <p style="font-size:0.92rem;color:var(--navy);margin:0 0 12px;">To join ACM and become a member of the ACM Bangalore Professional Chapter, please register directly through ACM India.</p>
+            <a href="https://india.acm.org/membership" target="_blank" rel="noopener" class="btn btn--primary btn--sm">Join via ACM India →</a>
+          </div>
+          <h2>Express Interest</h2>
+          <p>Already an ACM member, or want to let us know you're interested? Fill out the form and we'll be in touch.</p>
 
           <form id="joinForm" style="margin-top: 28px;" novalidate>
             <div class="form-row">
@@ -413,7 +418,7 @@
             <li><a href="about.html">About ACM Bangalore</a></li>
             <li><a href="events.html">Events &amp; Workshops</a></li>
             <li><a href="spotlight.html">Member Spotlight</a></li>
-            <li><a href="join.html">Join the Chapter</a></li>
+            <li><a href="https://india.acm.org/membership" target="_blank" rel="noopener">Join the Chapter</a></li>
             <li><a href="join.html#contact">Contact Us</a></li>
           </ul>
         </div>
@@ -457,7 +462,6 @@
   <!-- Toast -->
   <div class="toast" id="toast"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     // Nav toggle
     const toggle = document.getElementById('navToggle');
@@ -472,12 +476,8 @@
       setTimeout(() => t.classList.remove('show'), duration);
     }
 
-    // ─── SUPABASE ──────────────────────────────────────────────────────────
-    const SUPABASE_URL = 'https://rfvbyguseudzomeoozmy.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJmdmJ5Z3VzZXVkem9tZW9vem15Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2NjkwOTEsImV4cCI6MjA4OTI0NTA5MX0.OHQBtNbRboL5aFI7fZ-H7lP88WvaMuH-_R4fFLoK70Q';
-
     // ─── MEMBERSHIP FORM ──────────────────────────────────────────────────
-    document.getElementById('joinForm').addEventListener('submit', async function(e) {
+    document.getElementById('joinForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const required = ['firstName','lastName','email','affiliation','role','interests'];
       let valid = true;
@@ -488,36 +488,30 @@
       });
       if (!valid) { showToast('⚠ Please fill in all required fields.', 3500); return; }
 
-      const btn = this.querySelector('button[type="submit"]');
-      btn.disabled = true;
-      btn.textContent = 'Submitting…';
+      const firstName   = document.getElementById('firstName').value.trim();
+      const lastName    = document.getElementById('lastName').value.trim();
+      const email       = document.getElementById('email').value.trim();
+      const affiliation = document.getElementById('affiliation').value.trim();
+      const role        = document.getElementById('role').value.trim();
+      const interests   = document.getElementById('interests').value.trim();
+      const acmNumber   = document.getElementById('acmNumber').value.trim();
 
-      try {
-        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        const { error } = await sb.from('form_submissions').insert({
-          type:        'membership',
-          first_name:  document.getElementById('firstName').value.trim(),
-          last_name:   document.getElementById('lastName').value.trim(),
-          email:       document.getElementById('email').value.trim(),
-          affiliation: document.getElementById('affiliation').value.trim(),
-          role:        document.getElementById('role').value.trim(),
-          interests:   document.getElementById('interests').value.trim(),
-          acm_number:  document.getElementById('acmNumber').value.trim() || null
-        });
-        if (error) throw error;
-        showToast('✓ Application submitted! We will be in touch soon.', 5000);
-        this.reset();
-      } catch (err) {
-        console.error(err);
-        showToast('⚠ Submission failed. Please try again or email us directly.', 5000);
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Submit Application`;
-      }
+      const subject = encodeURIComponent('Membership Application – ' + firstName + ' ' + lastName);
+      const body = encodeURIComponent(
+        'Name: ' + firstName + ' ' + lastName + '\n' +
+        'Email: ' + email + '\n' +
+        'Affiliation: ' + affiliation + '\n' +
+        'Role: ' + role + '\n' +
+        'Interests: ' + interests + '\n' +
+        (acmNumber ? 'ACM Member Number: ' + acmNumber + '\n' : '')
+      );
+      window.location.href = 'mailto:contact@acmbangalore.org?subject=' + subject + '&body=' + body;
+      showToast('✓ Opening your email client to submit the application.', 5000);
+      this.reset();
     });
 
     // ─── CONTACT FORM ─────────────────────────────────────────────────────
-    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const required = ['cName','cEmail','cSubject','cMessage'];
       let valid = true;
@@ -528,35 +522,18 @@
       });
       if (!valid) { showToast('⚠ Please fill in all required fields.', 3500); return; }
 
-      const btn = this.querySelector('button[type="submit"]');
-      btn.disabled = true;
-      btn.textContent = 'Sending…';
-
       const name    = document.getElementById('cName').value.trim();
       const email   = document.getElementById('cEmail').value.trim();
       const subject = document.getElementById('cSubject').value.trim();
       const message = document.getElementById('cMessage').value.trim();
 
-      try {
-        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        const { error } = await sb.from('form_submissions').insert({
-          type:       'contact',
-          first_name: name.split(' ')[0] || name,
-          last_name:  name.split(' ').slice(1).join(' ') || '',
-          email:      email,
-          subject:    subject,
-          message:    message
-        });
-        if (error) throw error;
-        showToast('✓ Message sent! We typically respond within 2–3 business days.', 5000);
-        this.reset();
-      } catch (err) {
-        console.error(err);
-        showToast('⚠ Could not send message. Please try again.', 5000);
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message`;
-      }
+      const mailSubject = encodeURIComponent(subject);
+      const mailBody = encodeURIComponent(
+        'From: ' + name + ' <' + email + '>\n\n' + message
+      );
+      window.location.href = 'mailto:contact@acmbangalore.org?subject=' + mailSubject + '&body=' + mailBody;
+      showToast('✓ Opening your email client to send the message.', 5000);
+      this.reset();
     });
   </script>
 </body>

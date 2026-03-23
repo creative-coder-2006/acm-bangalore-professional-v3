@@ -282,7 +282,7 @@
         <li><a href="about.html">About</a></li>
         <li><a href="events.html">Events</a></li>
         <li><a href="spotlight.html">Spotlight</a></li>
-        <li><a href="join.html" class="btn-join">Join</a></li>
+        <li><a href="https://india.acm.org/membership" class="btn-join" target="_blank" rel="noopener">Join</a></li>
       </ul>
       <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -308,7 +308,7 @@
           connecting academia, industry, and research to shape the future of computing in India's tech hub.
         </p>
         <div class="hero__actions">
-          <a href="join.html" class="btn btn--primary btn--lg">Join Us</a>
+          <a href="https://india.acm.org/membership" class="btn btn--primary btn--lg" target="_blank" rel="noopener">Join Us</a>
           <a href="events.html" class="btn btn--outline btn--lg">View Events</a>
         </div>
       </div>
@@ -396,7 +396,7 @@
         Join the ACM Bangalore Professional Chapter and connect with leading computing professionals across India's tech hub.
       </p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
-        <a href="join.html" class="btn btn--primary btn--lg">Become a Member</a>
+        <a href="https://india.acm.org/membership" class="btn btn--primary btn--lg" target="_blank" rel="noopener">Become a Member</a>
         <a href="join.html#contact" class="btn btn--outline btn--lg">Contact Us</a>
       </div>
     </div>
@@ -434,7 +434,7 @@
             <li><a href="about.html">About ACM Bangalore</a></li>
             <li><a href="events.html">Events & Workshops</a></li>
             <li><a href="spotlight.html">Member Spotlight</a></li>
-            <li><a href="join.html">Join the Chapter</a></li>
+            <li><a href="https://india.acm.org/membership" target="_blank" rel="noopener">Join the Chapter</a></li>
             <li><a href="join.html#contact">Contact Us</a></li>
           </ul>
         </div>
@@ -489,7 +489,6 @@
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     // Nav toggle
     const toggle = document.getElementById('navToggle');
@@ -501,84 +500,22 @@
       document.getElementById('heroBg').classList.add('loaded');
     });
 
-    // ─── SUPABASE ──────────────────────────────────────────────────────────
-    const SUPABASE_URL = 'https://rfvbyguseudzomeoozmy.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJmdmJ5Z3VzZXVkem9tZW9vem15Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2NjkwOTEsImV4cCI6MjA4OTI0NTA5MX0.OHQBtNbRboL5aFI7fZ-H7lP88WvaMuH-_R4fFLoK70Q';
-
-    function esc(s) {
-      if (!s) return '';
-      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
-    function fmtDate(str) {
-      if (!str) return { day:'—', month:'', year:'' };
-      const d = new Date(str + 'T00:00:00');
-      return { day: d.getDate(), month: d.toLocaleString('en-IN',{month:'long'}), year: d.getFullYear() };
-    }
-
-    async function loadHomeUpcoming() {
-      const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-      const { data, error } = await sb.from('events').select('*').eq('type','upcoming')
-        .order('display_order',{ascending:true}).order('event_date',{ascending:true}).limit(1);
+    function loadHomeUpcoming() {
       const container = document.getElementById('homeUpcomingContainer');
-      if (error || !data || data.length === 0) {
-        container.innerHTML = `<div style="text-align:center;padding:48px;color:var(--gray-500);background:var(--white);border-radius:18px;box-shadow:var(--shadow-md);">
+      container.innerHTML = `<div style="text-align:center;padding:48px;color:var(--gray-500);background:var(--white);border-radius:18px;box-shadow:var(--shadow-md);">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--blue);display:block;margin:0 auto 16px;opacity:.4;">
             <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
           </svg>
           <p>No upcoming events scheduled. <a href="events.html" style="color:var(--blue);">View all events →</a></p>
         </div>`;
-        return;
-      }
-      const ev = data[0];
-      const {day, month, year} = fmtDate(ev.event_date);
-      const timeStr = [ev.start_time, ev.end_time].filter(Boolean).join(' – ');
-      const personIcon = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
-      const pinIcon = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
-      container.innerHTML = `<div class="upcoming-event__card">
-        <div class="upcoming-event__sidebar">
-          <div>
-            <div class="upcoming-event__tag">Event</div>
-            <div class="upcoming-event__date-big">
-              <div class="day">${day}</div>
-              <div class="month-year">${month} ${year}</div>
-            </div>
-            ${timeStr?`<div class="upcoming-event__time-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-2px;margin-right:6px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${esc(timeStr)}</div>`:''}
-            ${ev.mode?`<div style="margin-top:16px;color:rgba(255,255,255,0.55);font-size:0.82rem;display:flex;align-items:center;gap:6px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>${esc(ev.mode)}</div>`:''}
-          </div>
-          <a href="join.html#contact" class="btn btn--outline" style="margin-top:28px;">Register Interest</a>
-        </div>
-        <div class="upcoming-event__body">
-          <h3>${esc(ev.title)}</h3>
-          <div class="upcoming-event__details">
-            ${ev.speaker_name?`<div class="upcoming-event__detail"><div class="icon">${personIcon}</div><div><div class="label">Speaker</div><div class="value">${esc(ev.speaker_name)}</div>${ev.speaker_org?`<div style="font-size:0.82rem;color:var(--gray-600);">${esc(ev.speaker_org)}</div>`:''}</div></div>`:''}
-            ${ev.host_name?`<div class="upcoming-event__detail"><div class="icon">${personIcon}</div><div><div class="label">Host</div><div class="value">${esc(ev.host_name)}</div>${ev.host_org?`<div style="font-size:0.82rem;color:var(--gray-600);">${esc(ev.host_org)}</div>`:''}</div></div>`:''}
-            ${ev.location?`<div class="upcoming-event__detail"><div class="icon">${pinIcon}</div><div><div class="label">Venue</div><div class="value">${esc(ev.location)}</div></div></div>`:''}
-          </div>
-          <div class="upcoming-event__actions">
-            <a href="join.html#contact" class="btn btn--primary">Register Interest</a>
-            <a href="events.html" class="btn btn--outline-blue">All Events</a>
-          </div>
-        </div>
-      </div>`;
     }
 
-    async function loadHomeGallery() {
-      const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-      const { data, error } = await sb.from('gallery_photos').select('*')
-        .order('created_at',{ascending:false}).limit(3);
+    function loadHomeGallery() {
       const container = document.getElementById('homeGalleryContainer');
-      if (error || !data || data.length === 0) {
-        container.innerHTML = `
+      container.innerHTML = `
           <div class="activity-item"><img src="assets/image9.jpeg" alt="ACM Bangalore recent chapter activity" loading="lazy"/><div class="activity-item__overlay"></div></div>
           <div class="activity-item"><img src="assets/image10.jpeg" alt="ACM Bangalore event" loading="lazy" style="object-position:top center;"/><div class="activity-item__overlay"></div></div>
           <div class="activity-item"><img src="assets/image11.jpeg" alt="ACM Bangalore community" loading="lazy"/><div class="activity-item__overlay"></div></div>`;
-        return;
-      }
-      container.innerHTML = data.map(p=>`
-        <div class="activity-item">
-          <img src="${esc(p.url)}" alt="${esc(p.caption||'ACM Bangalore event photo')}" loading="lazy"/>
-          <div class="activity-item__overlay"></div>
-        </div>`).join('');
     }
 
     document.addEventListener('DOMContentLoaded', () => {
