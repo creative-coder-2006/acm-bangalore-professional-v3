@@ -42,9 +42,17 @@ html { scroll-behavior: smooth; font-size: 16px; }
 body {
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
   color: var(--gray-700);
-  background: var(--white);
+  background: #e8e8e8;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Page canvas — centres content with grey gutters on wide screens */
+.page-canvas {
+  max-width: 1440px;
+  margin: 0 auto;
+  background: var(--white);
+  overflow: hidden;
 }
 
 img { max-width: 100%; display: block; }
@@ -96,105 +104,172 @@ p { color: var(--gray-700); line-height: 1.75; }
 .mt-lg { margin-top: 48px; }
 
 /* ============================================================
-   NAVIGATION — matches ACM India's dark nav bar
+   NAVIGATION — 3-tier ACM India style
    ============================================================ */
-.nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  background: #111111;
-  border-bottom: 1px solid rgba(255,255,255,0.10);
-  transition: box-shadow var(--transition);
-}
 
-.nav__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 64px;
+/* --- Tier 1: Utility bar --- */
+.util-bar {
+  background: #111;
+  border-bottom: 1px solid #2a2a2a;
+}
+.util-bar__inner {
   max-width: 1160px;
   margin: 0 auto;
   padding: 0 24px;
-}
-
-.nav__brand {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
+  justify-content: flex-end;
+  align-items: stretch;
 }
-
-.nav__logo { height: 36px; width: auto; }
-.nav__logo--acm { height: 28px; width: auto; opacity: 0.9; }
-
-.nav__name {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--white);
-  letter-spacing: 0;
-}
-
-.nav__name span {
-  display: block;
-  font-size: 0.65rem;
+.util-bar__inner a {
+  color: #bbb;
+  font-size: 0.71rem;
   font-weight: 400;
-  letter-spacing: 0.08em;
-  color: rgba(255,255,255,0.50);
-  text-transform: uppercase;
+  text-decoration: none;
+  padding: 7px 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-left: 1px solid #2a2a2a;
+  transition: background 0.15s, color 0.15s;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
 }
+.util-bar__inner a:last-child { border-right: 1px solid #2a2a2a; }
+.util-bar__inner a:hover { background: #222; color: #fff; }
 
-.nav__links {
+/* --- Tier 2: Site header --- */
+.site-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 14px 0;
+}
+.site-header__inner {
   display: flex;
   align-items: center;
-  gap: 2px;
+  justify-content: space-between;
+  gap: 20px;
 }
-
-.nav__links a {
-  color: rgba(255,255,255,0.85);
-  font-size: 0.87rem;
-  font-weight: 500;
-  padding: 6px 14px;
-  border-radius: 3px;
-  transition: all var(--transition);
+.site-header__logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  flex-shrink: 0;
 }
-
-.nav__links a:hover,
-.nav__links a.active {
-  color: var(--white);
-  background: rgba(255,255,255,0.12);
+.site-header__logo img { height: 52px; width: auto; }
+.site-header__org {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
 }
+.site-header__chapter {
+  font-size: 0.75rem;
+  color: var(--gray-600);
+  margin-top: 3px;
+  font-weight: 400;
+}
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.hdr-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 16px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: inherit;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+.hdr-btn--teal { background: var(--teal); color: var(--white); }
+.hdr-btn--teal:hover { background: var(--teal-dark); color: var(--white); }
+.hdr-btn--search { background: var(--navy); color: var(--white); }
+.hdr-btn--search:hover { background: var(--teal); color: var(--white); }
 
-.nav__links .btn-join {
-  color: var(--white);
+/* --- Tier 3: Main navigation (sticky) --- */
+.main-nav {
+  background: #1a1a1a;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.main-nav__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  position: relative;
+}
+.main-nav__links {
+  display: flex;
+  align-items: stretch;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.main-nav__links li { display: flex; }
+.main-nav__links a {
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  height: 48px;
+  color: rgba(255,255,255,0.88);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  transition: background 0.15s, color 0.15s;
+}
+.main-nav__links a:hover,
+.main-nav__links a.active {
   background: var(--teal);
-  padding: 7px 18px;
-  border-radius: 3px;
-  font-weight: 600;
-  margin-left: 10px;
-  font-size: 0.87rem;
-  transition: background var(--transition);
+  color: var(--white);
 }
 
-.nav__links .btn-join:hover {
-  background: var(--teal-dark);
-  transform: none;
-}
-
-/* Hamburger */
-.nav__toggle {
+/* Hamburger toggle (hidden on desktop) */
+.main-nav__toggle {
   display: none;
   flex-direction: column;
   gap: 5px;
   cursor: pointer;
-  padding: 4px;
+  padding: 0 16px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  flex-shrink: 0;
 }
-.nav__toggle span {
+.main-nav__toggle span {
   display: block;
   width: 22px; height: 2px;
   background: var(--white);
   border-radius: 2px;
   transition: var(--transition);
 }
+
+/* Mobile-only elements — hidden on desktop.
+   Use li.main-nav__mobile-actions to beat .main-nav__links li specificity */
+.main-nav__mobile-logo          { display: none; }
+li.main-nav__mobile-actions     { display: none; }
 
 /* ============================================================
    BUTTONS — rectangular, ACM India style
@@ -266,7 +341,7 @@ p { color: var(--gray-700); line-height: 1.75; }
 .page-hero {
   background: var(--navy);
   color: var(--white);
-  padding: 120px 0 60px;
+  padding: 72px 0 60px;
   border-bottom: 3px solid var(--teal);
 }
 
@@ -640,18 +715,113 @@ p { color: var(--gray-700); line-height: 1.75; }
 
 @media (max-width: 768px) {
   .section { padding: 56px 0; }
-  .nav__links {
+
+  /* Hide util-bar and full site-header on mobile */
+  .util-bar    { display: none; }
+  .site-header { display: none; }
+
+  /* Mobile nav TOP BAR — white background */
+  .main-nav { background: #ffffff; box-shadow: 0 1px 4px rgba(0,0,0,0.12); }
+  .main-nav__inner {
+    justify-content: space-between;
+    padding: 0 16px;
+  }
+
+  /* Show mobile logo + text (left side of nav bar) */
+  .main-nav__mobile-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    overflow: hidden;
+  }
+  .main-nav__mobile-logo img {
+    height: 38px;
+    width: auto;
+    display: block;
+    flex-shrink: 0;
+  }
+  .main-nav__mobile-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    overflow: hidden;
+  }
+  .main-nav__mobile-org {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--teal);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 0.01em;
+  }
+  .main-nav__mobile-chapter {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 0.01em;
+  }
+
+  /* Show hamburger toggle — dark/teal on white bar */
+  .main-nav__toggle { display: flex; }
+  .main-nav__toggle span { background: var(--teal); }
+
+  /* Mobile SIDEBAR/DROPDOWN — teal background with white lines */
+  .main-nav__links {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 64px; left: 0; right: 0;
-    background: #111111;
-    padding: 14px 20px 18px;
-    gap: 2px;
-    border-bottom: 2px solid var(--teal);
+    top: 56px; left: 0; right: 0;
+    background: var(--teal);
+    border-bottom: 3px solid rgba(255,255,255,0.3);
+    z-index: 999;
+    max-height: calc(100vh - 56px);
+    overflow-y: auto;
   }
-  .nav__links.open { display: flex; }
-  .nav__toggle { display: flex; }
+  .main-nav__links.open { display: flex; }
+  .main-nav__links li   { display: block; }
+  .main-nav__links a {
+    height: 50px;
+    padding: 0 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.92);
+    background: transparent;
+  }
+  .main-nav__links a:hover,
+  .main-nav__links a.active {
+    background: rgba(0,0,0,0.15);
+    color: var(--white);
+  }
+
+  /* Join + myACM buttons at top of sidebar */
+  li.main-nav__mobile-actions {
+    display: flex !important;
+    gap: 10px;
+    padding: 14px 16px;
+    border-bottom: 2px solid rgba(255,255,255,0.3);
+  }
+  li.main-nav__mobile-actions a {
+    flex: 1;
+    height: 40px !important;
+    padding: 0 16px !important;
+    justify-content: center;
+    font-size: 0.85rem !important;
+    border-bottom: none !important;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.15) !important;
+    color: var(--white) !important;
+    border: 1px solid rgba(255,255,255,0.4) !important;
+  }
+  li.main-nav__mobile-actions a:hover {
+    background: rgba(255,255,255,0.28) !important;
+  }
+
   .form-row { grid-template-columns: 1fr; }
   .footer__grid { grid-template-columns: 1fr; gap: 24px; }
   .footer__bottom { flex-direction: column; align-items: flex-start; }

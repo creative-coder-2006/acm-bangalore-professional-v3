@@ -3,101 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Member Spotlight — ACM Bangalore Professional Chapter</title>
-  <meta name="description" content="Member Spotlight — celebrating the professionals who make ACM Bangalore a vibrant community. Coming soon." />
+  <title>Team — ACM Bangalore Professional Chapter</title>
+  <meta name="description" content="Meet the leadership team of the ACM Bangalore Professional Chapter — dedicated professionals steering our chapter towards new horizons." />
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* ---- COMING SOON ---- */
-    .coming-soon {
-      text-align: center;
-      padding: 100px 0;
+    /* ---- LEADERSHIP ---- */
+    .leadership-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 24px;
     }
-    .coming-soon__icon {
-      width: 96px; height: 96px;
-      background: var(--blue-light);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 28px;
-      color: var(--blue);
-    }
-    .coming-soon h2 { color: var(--navy); font-size: 2rem; }
-    .coming-soon p {
-      font-size: 1.05rem;
-      max-width: 520px;
-      margin: 16px auto 0;
-    }
-    .coming-soon__actions { margin-top: 36px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-
-    /* ---- WHAT TO EXPECT ---- */
-    .expect-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 32px 28px;
-      box-shadow: var(--shadow-md);
-      text-align: center;
-      transition: transform var(--transition), box-shadow var(--transition);
-    }
-    .expect-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-    }
-    .expect-card__icon {
-      width: 56px; height: 56px;
-      background: linear-gradient(135deg, var(--blue-light) 0%, #d0e8f5 100%);
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-      color: var(--blue);
-    }
-    .expect-card h3 { color: var(--navy); font-size: 1.1rem; }
-    .expect-card p { margin-top: 10px; font-size: 0.9rem; }
-
-    /* ---- NOMINATE FORM ---- */
-    .nominate-box {
-      background: linear-gradient(135deg, var(--navy) 0%, #1a3a5e 100%);
-      border-radius: 20px;
-      padding: 52px 48px;
-      color: var(--white);
-      text-align: center;
-    }
-    .nominate-box h2 { color: var(--white); font-size: 1.8rem; }
-    .nominate-box p { color: rgba(255,255,255,0.7); margin-top: 12px; font-size: 1rem; max-width: 480px; margin-left: auto; margin-right: auto; }
-    .nominate-form {
-      display: flex;
-      gap: 12px;
-      max-width: 460px;
-      margin: 28px auto 0;
-      flex-wrap: wrap;
-    }
-    .nominate-form input {
-      flex: 1;
-      min-width: 200px;
-      padding: 13px 18px;
-      border: 1.5px solid rgba(255,255,255,0.2);
-      background: rgba(255,255,255,0.1);
-      border-radius: 999px;
-      color: var(--white);
-      font-family: inherit;
-      font-size: 0.92rem;
-      outline: none;
-      transition: border-color var(--transition);
-    }
-    .nominate-form input::placeholder { color: rgba(255,255,255,0.45); }
-    .nominate-form input:focus { border-color: rgba(255,255,255,0.5); }
-
     @media (max-width: 600px) {
-      .nominate-box { padding: 36px 24px; }
+      .leadership-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 380px) {
+      .leadership-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 <div class="page-canvas">
 
-  <!-- ============ UTILITY BAR ============ -->
   <!-- ============ UTILITY BAR ============ -->
   <div class="util-bar">
     <div class="util-bar__inner">
@@ -145,8 +71,8 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="events.html">Events</a></li>
-        <li><a href="spotlight.html" class="active">Spotlight</a></li>
-        <li><a href="team.html">Team</a></li>
+        <li><a href="spotlight.html">Spotlight</a></li>
+        <li><a href="team.html" class="active">Team</a></li>
         <li><a href="https://services.acm.org/public/qj/proflevel/proflevel_control.cfm?level=3&country=India&form_type=Professional&promo=LEVEL&pay=DD" target="_blank" rel="noopener">Membership</a></li>
         <li><a href="join.html">Contact</a></li>
       </ul>
@@ -159,82 +85,76 @@
   <!-- ============ PAGE HERO ============ -->
   <div class="page-hero">
     <div class="container page-hero__content">
-      <span class="section-label" style="background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.85);">Community</span>
-      <h1>Member Spotlight</h1>
-      <p>Celebrating the talented professionals who make the ACM Bangalore community exceptional.</p>
+      <span class="section-label" style="background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.85);">The Team</span>
+      <h1>Our Leadership</h1>
+      <p>Dedicated professionals steering our chapter towards new horizons and greater impact in the computing community.</p>
     </div>
   </div>
 
-  <!-- ============ COMING SOON ============ -->
-  <section class="section">
-    <div class="container">
-      <div class="coming-soon">
-        <div class="coming-soon__icon">
-          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="8" r="7"/>
-            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
-          </svg>
-        </div>
-        <span class="section-label">Coming Soon</span>
-        <h2>Spotlights Launching Shortly</h2>
-        <p>
-          We're curating profiles of remarkable computing professionals from our chapter — members who have made unique contributions to the local tech scene or who bring diverse and inspiring backgrounds to the world of computing.
-        </p>
-        <div class="coming-soon__actions">
-          <a href="https://services.acm.org/public/qj/proflevel/proflevel_control.cfm?level=3&country=India&form_type=Professional&promo=LEVEL&pay=DD" class="btn btn--primary btn--lg" target="_blank" rel="noopener">Join the Chapter</a>
-          <a href="join.html#contact" class="btn btn--outline-blue btn--lg">Get in Touch</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ WHAT TO EXPECT ============ -->
+  <!-- ============ LEADERSHIP TEAM ============ -->
   <section class="section section--gray">
     <div class="container">
-      <div class="text-center" style="max-width: 520px; margin: 0 auto 48px;">
-        <span class="section-label">Preview</span>
-        <h2>What to Expect</h2>
-        <p style="margin-top: 12px;">Our Member Spotlight section will feature the voices, stories, and expertise of our community.</p>
-      </div>
-      <div class="grid-3">
-        <div class="expect-card">
-          <div class="expect-card__icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <div class="leadership-grid">
+
+        <div class="person-card">
+          <img src="assets/image4.jpeg" alt="Dr. Anbumunee Ponniah" class="person-card__img" />
+          <div class="person-card__body">
+            <div class="person-card__name">Dr. Anbumunee Ponniah</div>
+            <div class="person-card__role">Chapter Chair</div>
+            <div class="person-card__org">Chief Architect<br>IBM India Software Labs</div>
           </div>
-          <h3>Member Profiles</h3>
-          <p>Short bios, photos, and career highlights of 2–3 featured computing professionals from our chapter community.</p>
         </div>
-        <div class="expect-card">
-          <div class="expect-card__icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+
+        <div class="person-card">
+          <img src="assets/image5.jpeg" alt="Dr. Renuka Sindhgatta" class="person-card__img" />
+          <div class="person-card__body">
+            <div class="person-card__name">Dr. Renuka Sindhgatta</div>
+            <div class="person-card__role">Vice Chair</div>
+            <div class="person-card__org">STSM<br>IBM Research India</div>
           </div>
-          <h3>Unique Contributions</h3>
-          <p>Spotlighting members who have made unique contributions to the local tech scene in Bangalore and beyond.</p>
         </div>
-        <div class="expect-card">
-          <div class="expect-card__icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+
+        <div class="person-card">
+          <img src="assets/image6.jpeg" alt="Dr. Gururaj H L" class="person-card__img" />
+          <div class="person-card__body">
+            <div class="person-card__name">Dr. Gururaj H L</div>
+            <div class="person-card__role">Treasurer</div>
+            <div class="person-card__org">Associate Professor<br>MIT-MAHE, India</div>
           </div>
-          <h3>Diverse Backgrounds</h3>
-          <p>Celebrating the diversity of backgrounds in computing — from academia to industry, research to entrepreneurship.</p>
         </div>
+
+        <div class="person-card">
+          <img src="assets/image7.jpeg" alt="Mr. Gopal Gupta" class="person-card__img" />
+          <div class="person-card__body">
+            <div class="person-card__name">Mr. Gopal Gupta</div>
+            <div class="person-card__role">Secretary</div>
+            <div class="person-card__org">Distinguished Technologist<br>HPE, India</div>
+          </div>
+        </div>
+
+        <div class="person-card">
+          <img src="assets/image8.jpeg" alt="Mr. Isaac Theogaraj" class="person-card__img" />
+          <div class="person-card__body">
+            <div class="person-card__name">Mr. Isaac Theogaraj</div>
+            <div class="person-card__role">Membership Chair</div>
+            <div class="person-card__org">Strategy &amp; Technology Leader<br>HPE, India</div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- ============ NOMINATE ============ -->
-  <section class="section">
-    <div class="container">
-      <div class="nominate-box">
-        <h2>Know Someone Who Should Be Featured?</h2>
-        <p>Nominate a computing professional from the Bangalore community for our Member Spotlight section.</p>
-        <form class="nominate-form" onsubmit="handleNominate(event)">
-          <input type="email" placeholder="Your email address" id="nominateEmail" required />
-          <button type="submit" class="btn btn--primary">Notify Me</button>
-        </form>
-        <p style="font-size:0.8rem; margin-top:14px; color:rgba(255,255,255,0.4);">
-          We'll notify you when spotlights launch. No spam, ever.
-        </p>
+  <!-- ============ CTA ============ -->
+  <section class="section section--navy">
+    <div class="container text-center">
+      <h2 style="color:var(--white);">Ready to Shape the Future of Computing?</h2>
+      <p style="margin-top: 14px; font-size: 1.05rem; max-width: 500px; margin-left: auto; margin-right: auto;">
+        Join the ACM Bangalore Professional Chapter today and connect with the leaders of tomorrow.
+      </p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
+        <a href="https://services.acm.org/public/qj/proflevel/proflevel_control.cfm?level=3&country=India&form_type=Professional&promo=LEVEL&pay=DD" class="btn btn--primary btn--lg" target="_blank" rel="noopener">Become a Member</a>
+        <a href="join.html#contact" class="btn btn--outline btn--lg">Contact Us</a>
       </div>
     </div>
   </section>
@@ -246,7 +166,6 @@
         <div class="footer__brand">
           <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
             <img src="assets/image1.png" alt="ACM Bangalore Logo" style="height:36px; width:auto;" />
-            
           </div>
           <div class="footer__brand-name">ACM Bangalore Professional Chapter</div>
           <p class="footer__tagline">Serving the computing professional and academic community in Bangalore through excellence and innovation.</p>
@@ -269,6 +188,7 @@
             <li><a href="about.html">About ACM Bangalore</a></li>
             <li><a href="events.html">Events &amp; Workshops</a></li>
             <li><a href="spotlight.html">Member Spotlight</a></li>
+            <li><a href="team.html">Team</a></li>
             <li><a href="https://services.acm.org/public/qj/proflevel/proflevel_control.cfm?level=3&country=India&form_type=Professional&promo=LEVEL&pay=DD" target="_blank" rel="noopener">Join the Chapter</a></li>
             <li><a href="join.html#contact">Contact Us</a></li>
           </ul>
@@ -286,9 +206,15 @@
         </div>
         <div class="footer__contact">
           <div class="footer__heading">Contact</div>
-          <p>Bangalore, Karnataka, India</p>
-          <p>Use the contact form</p>
-          <div style="margin-top:16px;">
+          <p>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-2px;margin-right:6px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Bangalore, Karnataka, India
+          </p>
+          <p>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-2px;margin-right:6px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Use the contact form
+          </p>
+          <div style="margin-top: 16px;">
             <div class="footer__heading">Follow Us</div>
             <ul class="footer__links">
               <li><a href="https://www.linkedin.com/in/acm-bangalore-professional-chapter-041b463b0/" target="_blank" rel="noopener">LinkedIn</a></li>
@@ -310,29 +236,10 @@
     </div>
   </footer>
 
-  <!-- Toast -->
-  <div class="toast" id="toast"></div>
-
   <script>
     const toggle = document.getElementById('navToggle');
-    const navLinks = document.getElementById('navLinks');
-    toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 3500);
-    }
-
-    function handleNominate(e) {
-      e.preventDefault();
-      const email = document.getElementById('nominateEmail').value;
-      if (email) {
-        showToast('✓ Thank you! We\'ll notify you when spotlights launch.');
-        e.target.reset();
-      }
-    }
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
   </script>
 </div><!-- /page-canvas -->
 <script src="modal.js"></script>

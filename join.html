@@ -132,26 +132,61 @@
   </style>
 </head>
 <body>
+<div class="page-canvas">
 
-  <!-- ============ NAVIGATION ============ -->
-  <nav class="nav" role="navigation" aria-label="Main navigation">
-    <div class="nav__inner">
-      <a href="index.html" class="nav__brand">
-        <img src="assets/image1.png" alt="ACM Bangalore Chapter Logo" class="nav__logo" />
-        
-        <div class="nav__name">
-          ACM Bangalore
-          <span>Professional Chapter</span>
+  <!-- ============ UTILITY BAR ============ -->
+  <div class="util-bar">
+    <div class="util-bar__inner">
+      <a href="https://dl.acm.org/" target="_blank" rel="noopener">Digital Library <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      <a href="https://cacm.acm.org/" target="_blank" rel="noopener">CACM <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      <a href="https://queue.acm.org/" target="_blank" rel="noopener">Queue <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      <a href="https://technews.acm.org/" target="_blank" rel="noopener">TechNews <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      <a href="https://learning.acm.org/" target="_blank" rel="noopener">Learning Center <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      <a href="https://jobs.acm.org/" target="_blank" rel="noopener">Career Center <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+    </div>
+  </div>
+
+  <!-- ============ SITE HEADER ============ -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="index.html" class="site-header__logo">
+        <img src="assets/image1.png" alt="ACM Bangalore Professional Chapter Logo" />
+        <div>
+          <div class="site-header__org">Association for Computing Machinery</div>
+          <div class="site-header__chapter">ACM Bangalore Professional Chapter</div>
         </div>
       </a>
-      <ul class="nav__links" id="navLinks">
+      <div class="site-header__actions">
+        <a href="https://services.acm.org/public/qj/proflevel/proflevel_control.cfm?level=3&country=India&form_type=Professional&promo=LEVEL&pay=DD" class="hdr-btn hdr-btn--teal" target="_blank" rel="noopener">Join <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        <a href="https://myacm.acm.org/" class="hdr-btn hdr-btn--teal" target="_blank" rel="noopener">myACM <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MAIN NAV ============ -->
+  <nav class="main-nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="main-nav__inner">
+      <a href="index.html" class="main-nav__mobile-logo">
+        <img src="assets/image1.png" alt="ACM Bangalore Professional Chapter" />
+        <div class="main-nav__mobile-text">
+          <span class="main-nav__mobile-org">Association for Computing Machinery</span>
+          <span class="main-nav__mobile-chapter">ACM Bangalore Professional Chapter</span>
+        </div>
+      </a>
+      <ul class="main-nav__links" id="navLinks">
+        <li class="main-nav__mobile-actions">
+          <a href="https://services.acm.org/public/qj/proflevel/proflevel_control.cfm?level=3&country=India&form_type=Professional&promo=LEVEL&pay=DD" class="hdr-btn hdr-btn--teal" target="_blank" rel="noopener">Join</a>
+          <a href="https://myacm.acm.org/" class="hdr-btn hdr-btn--teal" target="_blank" rel="noopener">myACM</a>
+        </li>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="events.html">Events</a></li>
         <li><a href="spotlight.html">Spotlight</a></li>
-        <li><a href="https://india.acm.org/membership" class="btn-join" target="_blank" rel="noopener">Join</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="https://services.acm.org/public/qj/proflevel/proflevel_control.cfm?level=3&country=India&form_type=Professional&promo=LEVEL&pay=DD" target="_blank" rel="noopener">Membership</a></li>
+        <li><a href="join.html" class="active">Contact</a></li>
       </ul>
-      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
+      <button class="main-nav__toggle" id="navToggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -175,7 +210,7 @@
           <div style="background:var(--teal-light);border-left:4px solid var(--teal);border-radius:var(--radius-sm);padding:18px 20px;margin-bottom:28px;">
             <div style="font-size:0.8rem;font-weight:700;color:var(--teal-dark);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">ACM Professional Membership</div>
             <p style="font-size:0.92rem;color:var(--navy);margin:0 0 12px;">To join ACM and become a member of the ACM Bangalore Professional Chapter, please register directly through ACM India.</p>
-            <a href="https://india.acm.org/membership" target="_blank" rel="noopener" class="btn btn--primary btn--sm">Join via ACM India →</a>
+            <a href="https://services.acm.org/public/qj/proflevel/proflevel_control.cfm?level=3&country=India&form_type=Professional&promo=LEVEL&pay=DD" target="_blank" rel="noopener" class="btn btn--primary btn--sm">Join via ACM India →</a>
           </div>
           <h2>Express Interest</h2>
           <p>Already an ACM member, or want to let us know you're interested? Fill out the form and we'll be in touch.</p>
@@ -418,7 +453,7 @@
             <li><a href="about.html">About ACM Bangalore</a></li>
             <li><a href="events.html">Events &amp; Workshops</a></li>
             <li><a href="spotlight.html">Member Spotlight</a></li>
-            <li><a href="https://india.acm.org/membership" target="_blank" rel="noopener">Join the Chapter</a></li>
+            <li><a href="https://services.acm.org/public/qj/proflevel/proflevel_control.cfm?level=3&country=India&form_type=Professional&promo=LEVEL&pay=DD" target="_blank" rel="noopener">Join the Chapter</a></li>
             <li><a href="join.html#contact">Contact Us</a></li>
           </ul>
         </div>
@@ -536,5 +571,7 @@
       this.reset();
     });
   </script>
+</div><!-- /page-canvas -->
+<script src="modal.js"></script>
 </body>
 </html>
