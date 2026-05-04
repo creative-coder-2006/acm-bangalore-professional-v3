@@ -546,7 +546,15 @@
       if (hasArticle) {
         document.getElementById('articleDivider').style.display = '';
         document.getElementById('articleTextWrap').style.display = '';
-        document.getElementById('articleText').textContent = ev.article_text;
+        
+        let formattedText = esc(ev.article_text);
+        // Support Markdown bold
+        formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        // Support HTML bold tags
+        formattedText = formattedText.replace(/&lt;b&gt;/gi, '<b>').replace(/&lt;\/b&gt;/gi, '</b>');
+        formattedText = formattedText.replace(/&lt;strong&gt;/gi, '<strong>').replace(/&lt;\/strong&gt;/gi, '</strong>');
+        
+        document.getElementById('articleText').innerHTML = formattedText;
       }
 
       // ── Event photos ──
