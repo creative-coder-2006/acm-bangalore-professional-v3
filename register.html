@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register for Event — ACM Bangalore Professional Chapter</title>
+  <meta name="description" content="Register for upcoming events by the ACM Bangalore Professional Chapter." />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    .form-card {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      padding: 44px 40px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .form-card h2 { color: var(--navy); font-size: 1.6rem; }
+    .form-card > p { color: var(--gray-600); margin-top: 10px; font-size: 0.95rem; margin-bottom: 24px; }
+    @media (max-width: 560px) {
+      .form-card { padding: 28px 22px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-canvas">
+
+  <!-- ============ UTILITY BAR ============ -->
+  <div class="util-bar">
+    <div class="util-bar__inner">
+      <a href="https://dl.acm.org/" target="_blank" rel="noopener">Digital Library <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      <a href="https://cacm.acm.org/" target="_blank" rel="noopener">CACM <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      <a href="https://queue.acm.org/" target="_blank" rel="noopener">Queue <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      <a href="https://technews.acm.org/" target="_blank" rel="noopener">TechNews <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      <a href="https://learning.acm.org/" target="_blank" rel="noopener">Learning Center <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      <a href="https://jobs.acm.org/" target="_blank" rel="noopener">Career Center <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+    </div>
+  </div>
+
+  <!-- ============ SITE HEADER ============ -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="index.html" class="site-header__logo">
+        <img src="assets/image1.png" alt="ACM Bangalore Professional Chapter Logo" />
+        <div>
+          <div class="site-header__org">Association for Computing Machinery</div>
+          <div class="site-header__chapter">ACM Bangalore Professional Chapter</div>
+        </div>
+      </a>
+      <div class="site-header__actions">
+        <a href="https://services.acm.org/public/qj/proflevel/proflevel_control.cfm?level=3&country=India&form_type=Professional&promo=LEVEL&pay=DD" class="hdr-btn hdr-btn--teal" target="_blank" rel="noopener">Join <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        <a href="https://myacm.acm.org/" class="hdr-btn hdr-btn--teal" target="_blank" rel="noopener">myACM <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MAIN NAV ============ -->
+  <nav class="main-nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="main-nav__inner">
+      <a href="index.html" class="main-nav__mobile-logo">
+        <img src="assets/image1.png" alt="ACM Bangalore Professional Chapter" />
+        <div class="main-nav__mobile-text">
+          <span class="main-nav__mobile-org">Association for Computing Machinery</span>
+          <span class="main-nav__mobile-chapter">ACM Bangalore Professional Chapter</span>
+        </div>
+      </a>
+      <ul class="main-nav__links" id="navLinks">
+        <li class="main-nav__mobile-actions">
+          <a href="https://services.acm.org/public/qj/proflevel/proflevel_control.cfm?level=3&country=India&form_type=Professional&promo=LEVEL&pay=DD" class="hdr-btn hdr-btn--teal" target="_blank" rel="noopener">Join</a>
+          <a href="https://myacm.acm.org/" class="hdr-btn hdr-btn--teal" target="_blank" rel="noopener">myACM</a>
+        </li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
+        <li><a href="spotlight.html">Spotlight</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="https://services.acm.org/public/qj/proflevel/proflevel_control.cfm?level=3&country=India&form_type=Professional&promo=LEVEL&pay=DD" target="_blank" rel="noopener">Membership</a></li>
+        <li><a href="join.html">Contact</a></li>
+      </ul>
+      <button class="main-nav__toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============ PAGE HERO ============ -->
+  <div class="page-hero">
+    <div class="container page-hero__content">
+      <span class="section-label" style="background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.85);">Events</span>
+      <h1>Event Registration</h1>
+      <p>Secure your spot by registering for the upcoming chapter event.</p>
+    </div>
+  </div>
+
+  <!-- ============ REGISTRATION FORM ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="form-card">
+        <h2 id="eventTitleDisplay">Register for Event</h2>
+        <p>Please provide your information. We'll send you a confirmation email.</p>
+
+        <form id="regForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regFirst">First Name <span style="color:var(--accent)">*</span></label>
+              <input type="text" id="regFirst" placeholder="Jane" required />
+            </div>
+            <div class="form-group">
+              <label for="regLast">Last Name <span style="color:var(--accent)">*</span></label>
+              <input type="text" id="regLast" placeholder="Smith" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="regEmail">Email Address <span style="color:var(--accent)">*</span></label>
+            <input type="email" id="regEmail" placeholder="you@example.com" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regPhone">Phone (optional)</label>
+              <input type="tel" id="regPhone" placeholder="+91 98765 43210" />
+            </div>
+            <div class="form-group">
+              <label for="regAffiliation">Organisation / Affiliation</label>
+              <input type="text" id="regAffiliation" placeholder="Company or college" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="regMessage">Message (optional)</label>
+            <textarea id="regMessage" placeholder="Any questions or notes for the organisers..."></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary" id="regSubmitBtn" style="width:100%; justify-content:center; margin-top:8px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-2px;margin-right:6px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Register
+          </button>
+        </form>
+        
+        <div id="successMessage" style="display:none; text-align:center; padding: 20px 0;">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="1.5" style="margin: 0 auto 14px; display:block;">
+            <circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/>
+          </svg>
+          <h3 style="color:var(--navy); font-size:1.2rem; margin-bottom:8px;">You're registered!</h3>
+          <p style="color:var(--gray-600);">We'll be in touch with details closer to the event.</p>
+          <a href="events.html" class="btn btn--primary" style="margin-top: 16px;">Back to Events</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+            <img src="assets/image1.png" alt="ACM Bangalore Logo" style="height:36px; width:auto;" />
+          </div>
+          <div class="footer__brand-name">ACM Bangalore Professional Chapter</div>
+          <p class="footer__tagline">Serving the computing professional and academic community in Bangalore through excellence and innovation.</p>
+          <div class="footer__social">
+            <a href="https://www.linkedin.com/in/acm-bangalore-professional-chapter-041b463b0/" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="https://www.meetup.com/acm-bangalore/" target="_blank" rel="noopener" aria-label="Meetup">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+            </a>
+            <a href="mailto:contact@acmbangalore.org" aria-label="Email">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="footer__heading">Quick Links</div>
+          <ul class="footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About ACM Bangalore</a></li>
+            <li><a href="events.html">Events &amp; Workshops</a></li>
+            <li><a href="spotlight.html">Member Spotlight</a></li>
+            <li><a href="https://services.acm.org/public/qj/proflevel/proflevel_control.cfm?level=3&country=India&form_type=Professional&promo=LEVEL&pay=DD" target="_blank" rel="noopener">Join the Chapter</a></li>
+            <li><a href="join.html#contact">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Resources</div>
+          <ul class="footer__links">
+            <li><a href="https://www.acm.org/" target="_blank" rel="noopener">Global ACM</a></li>
+            <li><a href="https://india.acm.org/" target="_blank" rel="noopener">ACM India</a></li>
+            <li><a href="https://dl.acm.org/" target="_blank" rel="noopener">ACM Digital Library</a></li>
+            <li><a href="https://www.acm.org/membership" target="_blank" rel="noopener">Professional Membership</a></li>
+            <li><a href="https://www.acm.org/chapters/student-chapters" target="_blank" rel="noopener">Student Chapters</a></li>
+            <li><a href="https://www.acm.org/special-interest-groups" target="_blank" rel="noopener">Special Interest Groups</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact">
+          <div class="footer__heading">Contact</div>
+          <p>Bangalore, Karnataka, India</p>
+          <p>Use the contact form</p>
+          <div style="margin-top:16px;">
+            <div class="footer__heading">Follow Us</div>
+            <ul class="footer__links">
+              <li><a href="https://www.linkedin.com/in/acm-bangalore-professional-chapter-041b463b0/" target="_blank" rel="noopener">LinkedIn</a></li>
+              <li><a href="https://www.meetup.com/acm-bangalore/" target="_blank" rel="noopener">Meetup.com</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2024 ACM Bangalore Professional Chapter. All rights reserved. Association for Computing Machinery.</p>
+        <div class="footer__bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Code of Ethics</a>
+          <a href="https://www.acm.org/" target="_blank" rel="noopener">acm.org</a>
+          <a href="admin.html" style="opacity:0.45; font-size:0.75rem;">Admin</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav toggle
+    const toggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+    // Supabase
+    const SUPABASE_URL = 'https://hwiwkeiavzamepsoercx.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3aXdrZWlhdnphbWVwc29lcmN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNjg2NTUsImV4cCI6MjA4OTg0NDY1NX0.kJkYQEU-13m0Qw1YJoq4dPx1sLwDWya_V0RvHQeS9nI';
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // URL Params
+    const params = new URLSearchParams(window.location.search);
+    const eventId = params.get('event_id');
+    const eventTitle = params.get('title');
+
+    if (eventTitle) {
+      document.getElementById('eventTitleDisplay').textContent = 'Register — ' + eventTitle;
+      document.title = 'Register: ' + eventTitle + ' — ACM Bangalore Professional Chapter';
+    }
+
+    document.getElementById('regForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const first = document.getElementById('regFirst');
+      const last = document.getElementById('regLast');
+      const email = document.getElementById('regEmail');
+      
+      let valid = true;
+      [first, last, email].forEach(el => {
+        if (!el.value.trim()) { el.style.borderColor = 'var(--accent)'; valid = false; }
+        else { el.style.borderColor = ''; }
+      });
+      if (!valid) return;
+
+      const btn = document.getElementById('regSubmitBtn');
+      btn.disabled = true;
+      btn.innerHTML = 'Registering...';
+
+      try {
+        const { error } = await sb.from('event_registrations').insert({
+          event_id: eventId || null,
+          first_name: first.value.trim(),
+          last_name: last.value.trim(),
+          email: email.value.trim(),
+          phone: document.getElementById('regPhone').value.trim() || null,
+          affiliation: document.getElementById('regAffiliation').value.trim() || null,
+          message: document.getElementById('regMessage').value.trim() || null
+        });
+        
+        if (error) throw error;
+        
+        document.getElementById('regForm').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'block';
+        
+      } catch (err) {
+        console.error(err);
+        alert('Registration failed. Please try again.');
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</div>
+<script src="modal.js"></script>
+</body>
+</html>

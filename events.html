@@ -648,7 +648,7 @@
               ${ev.description ? `<p class="ev-card__desc">${esc(ev.description)}</p>` : ''}
               ${speakerRow || hostRow ? `<div class="ev-card__speakers">${speakerRow}${hostRow}</div>` : ''}
               <div class="ev-card__actions">
-                <button class="btn btn--primary" onclick="openRegModal('${ev.id}', ${JSON.stringify(esc(ev.title))})">Register for Event</button>
+                <a href="register.html?event_id=${ev.id}&title=${encodeURIComponent(ev.title)}" class="btn btn--primary">Register for Event</a>
                 <a href="join.html#contact" class="btn btn--outline-blue">Contact Organisers</a>
               </div>
             </div>
