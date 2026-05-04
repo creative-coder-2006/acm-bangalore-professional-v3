@@ -491,6 +491,14 @@
       if (!s) return '';
       return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
+    // Preserve newlines and render **bold** markdown
+    function formatText(s) {
+      if (!s) return '';
+      let t = esc(s);
+      t = t.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      t = t.replace(/\n/g, '<br>');
+      return t;
+    }
     function fmtDate(str) {
       if (!str) return { day:'—', month:'', monthShort:'', year:'' };
       const d = new Date(str + 'T00:00:00');
@@ -648,7 +656,7 @@
             <div class="ev-card__body">
               <div class="ev-card__type">Event</div>
               <h2 class="ev-card__title">${esc(ev.title)}</h2>
-              ${ev.description ? `<p class="ev-card__desc">${esc(ev.description)}</p>` : ''}
+              ${ev.description ? `<p class="ev-card__desc" style="white-space:pre-line;">${formatText(ev.description)}</p>` : ''}
               ${speakerRow || hostRow ? `<div class="ev-card__speakers">${speakerRow}${hostRow}</div>` : ''}
               <div class="ev-card__actions">
                 <a href="register.html?event_id=${ev.id}&title=${encodeURIComponent(ev.title)}" class="btn btn--primary">Register for Event</a>
