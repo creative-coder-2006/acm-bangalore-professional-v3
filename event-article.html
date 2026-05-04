@@ -470,7 +470,7 @@
 
       // Fetch event + photos
       const [evRes, photosRes] = await Promise.all([
-        sb.from('events').select('*').eq('id', id).eq('type', 'past').single(),
+        sb.from('events').select('*').eq('id', id).single(),
         sb.from('event_photos').select('*').eq('event_id', id).order('display_order').order('created_at')
       ]);
 
@@ -496,7 +496,7 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
               Back to Events
             </a>
-            <div class="article-hero__type">Past Event</div>
+            <div class="article-hero__type">${ev.type === 'upcoming' ? 'Upcoming Event' : 'Past Event'}</div>
             <h1 class="article-hero__title">${esc(ev.title)}</h1>
             <div class="article-hero__meta">
               ${dateStr ? `<div class="article-hero__meta-item">

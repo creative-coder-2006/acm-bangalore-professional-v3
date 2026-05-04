@@ -475,15 +475,6 @@
     </div>
   </div>
 
-  <!-- ============ READ MORE MODAL ============ -->
-  <div class="modal-overlay" id="readMoreModal">
-    <div class="modal" style="position:relative;">
-      <button class="modal-close" onclick="closeReadMoreModal()" aria-label="Close">&times;</button>
-      <h2 id="rmModalTitle" style="padding-right: 24px;">Event Details</h2>
-      <div id="rmModalBody" style="margin-top:20px; white-space:pre-line; color:var(--gray-700); line-height:1.6; font-size:1.05rem;"></div>
-    </div>
-  </div>
-
   <script>
     // ── NAV TOGGLE ──────────────────────────────────────────────────
     const toggle = document.getElementById('navToggle');
@@ -534,24 +525,6 @@
 
     document.getElementById('regModal').addEventListener('click', function(e) {
       if (e.target === this) closeRegModal();
-    });
-
-    function openReadMoreModal(id) {
-      const ev = upcomingEvents.find(e => e.id === id);
-      if (!ev) return;
-      document.getElementById('rmModalTitle').textContent = ev.title;
-      document.getElementById('rmModalBody').textContent = ev.long_description || '';
-      document.getElementById('readMoreModal').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeReadMoreModal() {
-      document.getElementById('readMoreModal').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    document.getElementById('readMoreModal').addEventListener('click', function(e) {
-      if (e.target === this) closeReadMoreModal();
     });
 
     document.getElementById('regForm').addEventListener('submit', async function(e) {
@@ -680,7 +653,7 @@
               <div class="ev-card__actions">
                 <a href="register.html?event_id=${ev.id}&title=${encodeURIComponent(ev.title)}" class="btn btn--primary">Register for Event</a>
                 <a href="join.html#contact" class="btn btn--outline-blue">Contact Organisers</a>
-                ${ev.long_description && ev.long_description.trim() ? `<button onclick="openReadMoreModal(${ev.id})" class="btn btn--outline-blue">Read More</button>` : ''}
+                ${ev.article_text && ev.article_text.trim() ? `<a href="event-article.html?id=${ev.id}" class="btn btn--outline-blue">Read Article</a>` : ''}
               </div>
             </div>
           </div>
