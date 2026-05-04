@@ -6,6 +6,7 @@
   <title>Join &amp; Contact — ACM Bangalore Professional Chapter</title>
   <meta name="description" content="Join the ACM Bangalore Professional Chapter. Fill out the membership application form or get in touch with our team." />
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     /* ---- TWO-COLUMN LAYOUT ---- */
     .join-layout {
@@ -498,6 +499,11 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    // Supabase
+    const SUPABASE_URL = 'https://hwiwkeiavzamepsoercx.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3aXdrZWlhdnphbWVwc29lcmN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNjg2NTUsImV4cCI6MjA4OTg0NDY1NX0.kJkYQEU-13m0Qw1YJoq4dPx1sLwDWya_V0RvHQeS9nI';
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
     // Nav toggle
     const toggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
@@ -512,7 +518,7 @@
     }
 
     // ─── MEMBERSHIP FORM ──────────────────────────────────────────────────
-    document.getElementById('joinForm').addEventListener('submit', function(e) {
+    document.getElementById('joinForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const required = ['firstName','lastName','email','affiliation','role','interests'];
       let valid = true;
@@ -531,22 +537,28 @@
       const interests   = document.getElementById('interests').value.trim();
       const acmNumber   = document.getElementById('acmNumber').value.trim();
 
-      const subject = encodeURIComponent('Membership Application – ' + firstName + ' ' + lastName);
-      const body = encodeURIComponent(
-        'Name: ' + firstName + ' ' + lastName + '\n' +
-        'Email: ' + email + '\n' +
-        'Affiliation: ' + affiliation + '\n' +
-        'Role: ' + role + '\n' +
-        'Interests: ' + interests + '\n' +
-        (acmNumber ? 'ACM Member Number: ' + acmNumber + '\n' : '')
-      );
-      window.location.href = 'mailto:contact@acmbangalore.org?subject=' + subject + '&body=' + body;
-      showToast('✓ Opening your email client to submit the application.', 5000);
-      this.reset();
+      try {
+        const { error } = await sb.from('form_submissions').insert({
+          type: 'membership',
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          affiliation: affiliation,
+          role: role,
+          interests: interests,
+          acm_number: acmNumber || null
+        });
+        if (error) throw error;
+        showToast('✓ Application submitted successfully. We will be in touch.', 5000);
+        this.reset();
+      } catch (err) {
+        console.error(err);
+        showToast('⚠ Failed to submit application. Please try again.', 5000);
+      }
     });
 
     // ─── CONTACT FORM ─────────────────────────────────────────────────────
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const required = ['cName','cEmail','cSubject','cMessage'];
       let valid = true;
@@ -562,13 +574,25 @@
       const subject = document.getElementById('cSubject').value.trim();
       const message = document.getElementById('cMessage').value.trim();
 
-      const mailSubject = encodeURIComponent(subject);
-      const mailBody = encodeURIComponent(
-        'From: ' + name + ' <' + email + '>\n\n' + message
-      );
-      window.location.href = 'mailto:contact@acmbangalore.org?subject=' + mailSubject + '&body=' + mailBody;
-      showToast('✓ Opening your email client to send the message.', 5000);
-      this.reset();
+      try {
+        const [first_name, ...last_name_arr] = name.split(' ');
+        const last_name = last_name_arr.join(' ');
+        
+        const { error } = await sb.from('form_submissions').insert({
+          type: 'contact',
+          first_name: first_name,
+          last_name: last_name,
+          email: email,
+          subject: subject,
+          message: message
+        });
+        if (error) throw error;
+        showToast('✓ Message sent successfully. We will be in touch.', 5000);
+        this.reset();
+      } catch (err) {
+        console.error(err);
+        showToast('⚠ Failed to send message. Please try again.', 5000);
+      }
     });
   </script>
 </div><!-- /page-canvas -->
