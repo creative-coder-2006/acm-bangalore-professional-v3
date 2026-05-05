@@ -660,7 +660,7 @@
               ${speakerRow || hostRow ? `<div class="ev-card__speakers">${speakerRow}${hostRow}</div>` : ''}
               <div class="ev-card__actions">
                 <a href="register.html?event_id=${ev.id}&title=${encodeURIComponent(ev.title)}" class="btn btn--primary">Register for Event</a>
-                <a href="join.html#contact" class="btn btn--outline-blue">Contact Organisers</a>
+                <a href="contact.html?event_id=${ev.id}&title=${encodeURIComponent(ev.title)}" class="btn btn--outline-blue">Contact Organisers</a>
                 ${ev.article_text && ev.article_text.trim() ? `<a href="event-article.html?id=${ev.id}" class="btn btn--outline-blue">Read Article</a>` : ''}
               </div>
             </div>

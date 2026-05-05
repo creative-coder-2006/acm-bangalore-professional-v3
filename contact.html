@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Organisers — ACM Bangalore Professional Chapter</title>
+  <meta name="description" content="Get in touch with the ACM Bangalore Professional Chapter organisers about a specific event." />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    /* ── CONTACT PAGE STYLES ──────────────────────────────── */
+    .contact-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    /* Event context banner */
+    .event-context {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a4a72 100%);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .event-context__icon {
+      width: 52px; height: 52px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .event-context__label {
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.55); margin-bottom: 5px;
+    }
+    .event-context__title {
+      font-size: 1.15rem; font-weight: 800; color: #fff; line-height: 1.3;
+    }
+
+    /* Form card */
+    .contact-card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.1);
+      padding: 40px 40px;
+    }
+    .contact-card__header { margin-bottom: 28px; }
+    .contact-card__header h2 {
+      font-size: 1.45rem; font-weight: 800; color: var(--navy); margin-bottom: 6px;
+    }
+    .contact-card__header p { color: var(--gray-600); font-size: 0.93rem; line-height: 1.6; }
+
+    /* Fields */
+    .cf-group { margin-bottom: 18px; }
+    .cf-group label {
+      display: block; font-size: 0.78rem; font-weight: 700;
+      color: var(--gray-600); margin-bottom: 6px;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .cf-group input, .cf-group textarea {
+      width: 100%; padding: 12px 15px;
+      border: 1.5px solid #e2e8f0; border-radius: 10px;
+      font-size: 0.93rem; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: inherit; box-sizing: border-box; color: #1e293b;
+      background: #fafcfe;
+    }
+    .cf-group input:focus, .cf-group textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(0,115,183,0.12);
+      background: #fff;
+    }
+    .cf-group input.error, .cf-group textarea.error {
+      border-color: #ef4444;
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.1);
+    }
+    .cf-group textarea { min-height: 120px; resize: vertical; }
+    .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .cf-required { color: #ef4444; }
+
+    /* Character count */
+    .cf-hint { font-size: 0.76rem; color: #94a3b8; margin-top: 4px; }
+
+    /* Submit area */
+    .cf-submit { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+    .cf-submit .btn--primary { font-size: 1rem; padding: 14px 28px; border-radius: 10px; width: 100%; justify-content: center; }
+    .cf-back { text-align: center; font-size: 0.85rem; color: var(--gray-500); }
+    .cf-back a { color: var(--blue); font-weight: 600; text-decoration: none; }
+    .cf-back a:hover { text-decoration: underline; }
+
+    /* Privacy note */
+    .privacy-note {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 14px 16px; background: #f0f9ff; border-radius: 10px;
+      border: 1px solid #bae6fd; margin-top: 20px;
+    }
+    .privacy-note svg { flex-shrink: 0; color: #0284c7; margin-top: 1px; }
+    .privacy-note p { font-size: 0.8rem; color: #0369a1; line-height: 1.5; }
+
+    /* ── SUCCESS STATE ──────────────────────────────────── */
+    .success-wrap {
+      text-align: center; padding: 56px 32px; display: none;
+    }
+    .success-icon {
+      width: 80px; height: 80px;
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px; box-shadow: 0 8px 24px rgba(22,163,74,0.3);
+    }
+    .success-wrap h2 { font-size: 1.55rem; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
+    .success-wrap p { color: var(--gray-600); font-size: 0.95rem; line-height: 1.7; max-width: 380px; margin: 0 auto 28px; }
+
+    /* ── LOADING STATE ──────────────────────────────────── */
+    .event-context__title.loading {
+      background: rgba(255,255,255,0.15); border-radius: 6px;
+      color: transparent; animation: shimmer 1.4s infinite; min-width: 260px;
+    }
+
+    @media (max-width: 600px) {
+      .contact-card { padding: 28px 22px; }
+      .cf-row { grid-template-columns: 1fr; }
+      .event-context { flex-direction: column; text-align: center; padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-canvas">
+
+  <!-- ============ UTILITY BAR ============ -->
+  <div class="util-bar">
+    <div class="util-bar__inner">
+      <a href="https://dl.acm.org/" target="_blank" rel="noopener">Digital Library <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      <a href="https://cacm.acm.org/" target="_blank" rel="noopener">CACM <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      <a href="https://learning.acm.org/" target="_blank" rel="noopener">Learning Center <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+    </div>
+  </div>
+
+  <!-- ============ SITE HEADER ============ -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="index.html" class="site-header__logo">
+        <img src="assets/image1.png" alt="ACM Bangalore Professional Chapter Logo" />
+        <div>
+          <div class="site-header__org">Association for Computing Machinery</div>
+          <div class="site-header__chapter">ACM Bangalore Professional Chapter</div>
+        </div>
+      </a>
+      <div class="site-header__actions">
+        <a href="https://services.acm.org/public/qj/proflevel/proflevel_control.cfm?level=3&country=India&form_type=Professional&promo=LEVEL&pay=DD" class="hdr-btn hdr-btn--teal" target="_blank" rel="noopener">Join</a>
+        <a href="https://myacm.acm.org/" class="hdr-btn hdr-btn--teal" target="_blank" rel="noopener">myACM</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MAIN NAV ============ -->
+  <nav class="main-nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="main-nav__inner">
+      <a href="index.html" class="main-nav__mobile-logo">
+        <img src="assets/image1.png" alt="ACM Bangalore Professional Chapter" />
+        <div class="main-nav__mobile-text">
+          <span class="main-nav__mobile-org">Association for Computing Machinery</span>
+          <span class="main-nav__mobile-chapter">ACM Bangalore Professional Chapter</span>
+        </div>
+      </a>
+      <ul class="main-nav__links" id="navLinks">
+        <li class="main-nav__mobile-actions">
+          <a href="https://services.acm.org/public/qj/proflevel/proflevel_control.cfm?level=3&country=India&form_type=Professional&promo=LEVEL&pay=DD" class="hdr-btn hdr-btn--teal" target="_blank" rel="noopener">Join</a>
+          <a href="https://myacm.acm.org/" class="hdr-btn hdr-btn--teal" target="_blank" rel="noopener">myACM</a>
+        </li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
+        <li><a href="spotlight.html">Spotlight</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="https://services.acm.org/public/qj/proflevel/proflevel_control.cfm?level=3&country=India&form_type=Professional&promo=LEVEL&pay=DD" target="_blank" rel="noopener">Membership</a></li>
+        <li><a href="join.html">Contact</a></li>
+      </ul>
+      <button class="main-nav__toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============ PAGE HERO ============ -->
+  <div class="page-hero" style="padding: 52px 0 48px;">
+    <div class="container page-hero__content">
+      <span class="section-label" style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.85);">Event Enquiry</span>
+      <h1>Contact Organisers</h1>
+      <p>Have a question about this event? Send us a message and the organising team will get back to you.</p>
+    </div>
+  </div>
+
+  <!-- ============ CONTACT FORM ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-wrap">
+
+        <!-- Event context banner -->
+        <div class="event-context" id="eventContextBanner">
+          <div class="event-context__icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <div>
+            <div class="event-context__label">Enquiry about</div>
+            <div class="event-context__title loading" id="eventContextTitle">Loading event…</div>
+          </div>
+        </div>
+
+        <!-- Form card -->
+        <div class="contact-card" id="contactCard">
+
+          <!-- Form -->
+          <div id="formWrap">
+            <div class="contact-card__header">
+              <h2>Send a Message</h2>
+              <p>Fill in the form below and our organising team will respond as soon as possible. Fields marked <span class="cf-required">*</span> are required.</p>
+            </div>
+
+            <form id="contactForm" novalidate>
+              <!-- Name row -->
+              <div class="cf-row">
+                <div class="cf-group">
+                  <label for="cf-name">Full Name <span class="cf-required">*</span></label>
+                  <input type="text" id="cf-name" placeholder="e.g. Priya Sharma" required />
+                </div>
+                <div class="cf-group">
+                  <label for="cf-phone">Phone Number</label>
+                  <input type="tel" id="cf-phone" placeholder="+91 98765 43210" />
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="cf-group">
+                <label for="cf-email">Email Address <span class="cf-required">*</span></label>
+                <input type="email" id="cf-email" placeholder="you@example.com" required />
+              </div>
+
+              <!-- Organisation -->
+              <div class="cf-group">
+                <label for="cf-org">Organisation / Affiliation</label>
+                <input type="text" id="cf-org" placeholder="Company, college, or institution" />
+              </div>
+
+              <!-- Message -->
+              <div class="cf-group">
+                <label for="cf-message">Message <span class="cf-required">*</span></label>
+                <textarea id="cf-message" placeholder="Your question or message for the organisers…" required maxlength="1000"></textarea>
+                <div class="cf-hint"><span id="charCount">0</span> / 1000 characters</div>
+              </div>
+
+              <!-- Privacy note -->
+              <div class="privacy-note">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/>
+                  <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <p>Your information will only be used to respond to your enquiry. We respect your privacy and will not share your details with third parties.</p>
+              </div>
+
+              <!-- Actions -->
+              <div class="cf-submit">
+                <button type="submit" class="btn btn--primary" id="submitBtn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-2px;margin-right:6px;">
+                    <line x1="22" y1="2" x2="11" y2="13"/>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                  </svg>
+                  Send Message
+                </button>
+                <div class="cf-back">
+                  <a href="events.html" id="backLink">← Back to Events</a>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Success state -->
+          <div class="success-wrap" id="successWrap">
+            <div class="success-icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <h2>Message Sent!</h2>
+            <p id="successText">Thank you for reaching out. Our organising team will get back to you shortly.</p>
+            <a href="events.html" class="btn btn--primary" style="display:inline-flex;gap:8px;align-items:center;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"/>
+              </svg>
+              Back to Events
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <img src="assets/image1.png" alt="ACM Bangalore Logo" style="height:36px;width:auto;" />
+          </div>
+          <div class="footer__brand-name">ACM Bangalore Professional Chapter</div>
+          <p class="footer__tagline">Serving the computing professional and academic community in Bangalore through excellence and innovation.</p>
+        </div>
+        <div>
+          <div class="footer__heading">Quick Links</div>
+          <ul class="footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About ACM Bangalore</a></li>
+            <li><a href="events.html">Events &amp; Workshops</a></li>
+            <li><a href="join.html#contact">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact">
+          <div class="footer__heading">Contact</div>
+          <p>Bangalore, Karnataka, India</p>
+          <p>Use the contact form on this page</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2024 ACM Bangalore Professional Chapter. All rights reserved.</p>
+        <div class="footer__bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="admin.html" style="opacity:0.45;font-size:0.75rem;">Admin</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /page-canvas -->
+
+<script>
+  // ── NAV TOGGLE ────────────────────────────────────────
+  document.getElementById('navToggle').addEventListener('click', () =>
+    document.getElementById('navLinks').classList.toggle('open'));
+
+  // ── SUPABASE ──────────────────────────────────────────
+  const SUPABASE_URL = 'https://hwiwkeiavzamepsoercx.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3aXdrZWlhdnphbWVwc29lcmN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNjg2NTUsImV4cCI6MjA4OTg0NDY1NX0.kJkYQEU-13m0Qw1YJoq4dPx1sLwDWya_V0RvHQeS9nI';
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // ── READ URL PARAMS ───────────────────────────────────
+  const params    = new URLSearchParams(window.location.search);
+  const eventId   = params.get('event_id');
+  const eventTitle = decodeURIComponent(params.get('title') || 'This Event');
+
+  // ── POPULATE EVENT CONTEXT ────────────────────────────
+  const titleEl = document.getElementById('eventContextTitle');
+  titleEl.textContent = eventTitle;
+  titleEl.classList.remove('loading');
+  document.title = `Contact Organisers — ${eventTitle} | ACM Bangalore`;
+
+  // ── CHARACTER COUNTER ─────────────────────────────────
+  const msgArea   = document.getElementById('cf-message');
+  const charCount = document.getElementById('charCount');
+  msgArea.addEventListener('input', () => {
+    charCount.textContent = msgArea.value.length;
+  });
+
+  // ── FORM SUBMISSION ───────────────────────────────────
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const name    = document.getElementById('cf-name').value.trim();
+    const phone   = document.getElementById('cf-phone').value.trim();
+    const email   = document.getElementById('cf-email').value.trim();
+    const org     = document.getElementById('cf-org').value.trim();
+    const message = msgArea.value.trim();
+
+    // Validate required fields
+    let valid = true;
+    [['cf-name', name], ['cf-email', email], ['cf-message', message]].forEach(([id, val]) => {
+      const el = document.getElementById(id);
+      if (!val) { el.classList.add('error'); valid = false; }
+      else el.classList.remove('error');
+    });
+    if (!valid) return;
+
+    // Email format check
+    const emailEl = document.getElementById('cf-email');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      emailEl.classList.add('error');
+      emailEl.focus();
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = `<span style="display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:-3px;margin-right:8px;"></span> Sending…`;
+
+    try {
+      const payload = {
+        event_id:     eventId || null,
+        event_title:  eventTitle,
+        name:         name,
+        phone:        phone || null,
+        email:        email,
+        organisation: org || null,
+        message:      message
+      };
+      const { error } = await sb.from('event_contact_messages').insert(payload);
+      if (error) throw error;
+
+      // Show success
+      document.getElementById('formWrap').style.display = 'none';
+      document.getElementById('successWrap').style.display = 'block';
+      document.getElementById('successText').textContent =
+        `Thanks for your message! The organising team for "${eventTitle}" will get back to you at ${email} shortly.`;
+
+    } catch (err) {
+      console.error(err);
+      alert('Failed to send message. Please try again or email contact@acmbangalore.org directly.');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-2px;margin-right:6px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message`;
+    }
+  });
+
+  // Clear error styling on input
+  document.querySelectorAll('.cf-group input, .cf-group textarea').forEach(el => {
+    el.addEventListener('input', () => el.classList.remove('error'));
+  });
+</script>
+
+<style>
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</body>
+</html>

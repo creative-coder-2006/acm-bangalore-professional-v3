@@ -87,21 +87,37 @@ CREATE TABLE IF NOT EXISTS form_submissions (
   submitted_at timestamptz DEFAULT now()
 );
 
--- ── 7. DISABLE RLS (anon key drives everything via app-level auth) ─
-ALTER TABLE admins              DISABLE ROW LEVEL SECURITY;
-ALTER TABLE events              DISABLE ROW LEVEL SECURITY;
-ALTER TABLE event_photos        DISABLE ROW LEVEL SECURITY;
-ALTER TABLE event_registrations DISABLE ROW LEVEL SECURITY;
-ALTER TABLE gallery_photos      DISABLE ROW LEVEL SECURITY;
-ALTER TABLE form_submissions    DISABLE ROW LEVEL SECURITY;
+-- ── 7. EVENT CONTACT MESSAGES ────────────────────────────────────
+-- Messages sent via "Contact Organisers" on event cards
+CREATE TABLE IF NOT EXISTS event_contact_messages (
+  id           uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  event_id     uuid REFERENCES events(id) ON DELETE SET NULL,
+  event_title  text DEFAULT '',
+  name         text NOT NULL,
+  phone        text DEFAULT '',
+  email        text NOT NULL,
+  organisation text DEFAULT '',
+  message      text NOT NULL,
+  created_at   timestamptz DEFAULT now()
+);
+
+-- ── 8. DISABLE RLS (anon key drives everything via app-level auth) ─
+ALTER TABLE admins                  DISABLE ROW LEVEL SECURITY;
+ALTER TABLE events                  DISABLE ROW LEVEL SECURITY;
+ALTER TABLE event_photos            DISABLE ROW LEVEL SECURITY;
+ALTER TABLE event_registrations     DISABLE ROW LEVEL SECURITY;
+ALTER TABLE gallery_photos          DISABLE ROW LEVEL SECURITY;
+ALTER TABLE form_submissions        DISABLE ROW LEVEL SECURITY;
+ALTER TABLE event_contact_messages  DISABLE ROW LEVEL SECURITY;
 
 -- Grant anon role full access
-GRANT ALL ON admins              TO anon;
-GRANT ALL ON events              TO anon;
-GRANT ALL ON event_photos        TO anon;
-GRANT ALL ON event_registrations TO anon;
-GRANT ALL ON gallery_photos      TO anon;
-GRANT ALL ON form_submissions    TO anon;
+GRANT ALL ON admins                  TO anon;
+GRANT ALL ON events                  TO anon;
+GRANT ALL ON event_photos            TO anon;
+GRANT ALL ON event_registrations     TO anon;
+GRANT ALL ON gallery_photos          TO anon;
+GRANT ALL ON form_submissions        TO anon;
+GRANT ALL ON event_contact_messages  TO anon;
 
 -- ── 8. INITIAL ADMIN ACCOUNT ─────────────────────────────────────
 -- username: surya.rimmalapudi  |  password: abc123

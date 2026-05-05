@@ -238,6 +238,10 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
         Form Submissions
       </div>
+      <div class="nav-item" onclick="showSec('eventContacts')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Event Contacts
+      </div>
       <div class="nav-item" onclick="showSec('admins')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         Admin Settings
@@ -266,6 +270,7 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
         <div class="stat-card"><div class="stat-num" id="stRegistrations">—</div><div class="stat-lbl">Registrations</div></div>
         <div class="stat-card"><div class="stat-num" id="stGallery">—</div><div class="stat-lbl">Gallery Photos</div></div>
         <div class="stat-card"><div class="stat-num" id="stSubmissions">—</div><div class="stat-lbl">Form Submissions</div></div>
+        <div class="stat-card" style="border-top-color:#7c3aed"><div class="stat-num" id="stEventContacts">—</div><div class="stat-lbl">Event Contact Msgs</div></div>
       </div>
       <div style="background:#fff;border-radius:12px;padding:22px;box-shadow:0 1px 4px rgba(0,0,0,.07)">
         <h3 style="font-size:1rem;color:#0d1b2a;margin-bottom:12px">Quick Actions</h3>
@@ -275,6 +280,7 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
           <button class="btn btn-ghost btn-sm" onclick="showSec('registrations')">View Registrations</button>
           <button class="btn btn-ghost btn-sm" onclick="showSec('gallery')">Upload to Gallery</button>
           <button class="btn btn-ghost btn-sm" onclick="showSec('submissions')">View Submissions</button>
+          <button class="btn btn-ghost btn-sm" onclick="showSec('eventContacts')">View Event Contacts</button>
         </div>
       </div>
     </div>
@@ -431,6 +437,28 @@ hr.divider{border:none;border-top:1px solid #e2e8f0;margin:18px 0}
       </div>
     </div>
 
+    <!-- ── EVENT CONTACT MESSAGES ───────────────── -->
+    <div class="sec" id="secEventContacts">
+      <div class="sec-head">
+        <h2>Event Contact Messages</h2>
+        <span class="text-sm" id="ecCount"></span>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="font-size:.82rem;font-weight:600;color:#475569;margin-right:8px;">Filter by event:</label>
+        <select id="ecEventFilter" onchange="filterEventContacts()" style="padding:6px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:.86rem;outline:none;">
+          <option value="">All events</option>
+        </select>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Event</th><th>Name</th><th>Email</th><th>Phone</th><th>Organisation</th><th>Message</th></tr>
+          </thead>
+          <tbody id="ecBody"></tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- ── ADMIN SETTINGS ────────────────────────── -->
     <div class="sec" id="secAdmins">
       <div class="sec-head"><h2>Admin Settings</h2></div>
@@ -568,6 +596,7 @@ function enterDashboard() {
   loadRegistrations();
   loadGallery();
   loadSubmissions();
+  loadEventContacts();
   loadAdmins();
 }
 
@@ -594,18 +623,20 @@ function toggleAddPanel(id) {
 // OVERVIEW
 // ════════════════════════════════════════════════
 async function loadOverview() {
-  const [up, pa, re, ga, su] = await Promise.all([
+  const [up, pa, re, ga, su, ec] = await Promise.all([
     db.from('events').select('id', { count:'exact', head:true }).eq('type','upcoming'),
     db.from('events').select('id', { count:'exact', head:true }).eq('type','past'),
     db.from('event_registrations').select('id', { count:'exact', head:true }),
     db.from('gallery_photos').select('id', { count:'exact', head:true }),
     db.from('form_submissions').select('id', { count:'exact', head:true }),
+    db.from('event_contact_messages').select('id', { count:'exact', head:true }),
   ]);
-  document.getElementById('stUpcoming').textContent     = up.count ?? 0;
-  document.getElementById('stPast').textContent         = pa.count ?? 0;
+  document.getElementById('stUpcoming').textContent      = up.count ?? 0;
+  document.getElementById('stPast').textContent          = pa.count ?? 0;
   document.getElementById('stRegistrations').textContent = re.count ?? 0;
-  document.getElementById('stGallery').textContent      = ga.count ?? 0;
-  document.getElementById('stSubmissions').textContent  = su.count ?? 0;
+  document.getElementById('stGallery').textContent       = ga.count ?? 0;
+  document.getElementById('stSubmissions').textContent   = su.count ?? 0;
+  document.getElementById('stEventContacts').textContent = ec.count ?? 0;
 }
 
 // ════════════════════════════════════════════════
@@ -1029,6 +1060,61 @@ async function deleteGalleryPhoto(id, storagePath) {
   document.getElementById('gphumb_' + id)?.remove();
   toast('Photo deleted.', 'success');
   await loadOverview();
+}
+
+// ════════════════════════════════════════════════
+// EVENT CONTACT MESSAGES
+// ════════════════════════════════════════════════
+let allEventContacts = [];
+
+async function loadEventContacts() {
+  const { data, count } = await db.from('event_contact_messages')
+    .select('*', { count:'exact' })
+    .order('created_at', { ascending: false });
+  document.getElementById('ecCount').textContent = (count || 0) + ' message(s)';
+  allEventContacts = data || [];
+  rebuildEcFilter();
+  renderEventContacts(allEventContacts);
+}
+
+function rebuildEcFilter() {
+  const sel = document.getElementById('ecEventFilter');
+  const current = sel.value;
+  // Build unique event list from messages
+  const seen = {};
+  const opts = allEventContacts
+    .filter(m => m.event_id && m.event_title)
+    .filter(m => { if (seen[m.event_id]) return false; seen[m.event_id] = true; return true; })
+    .map(m => `<option value="${esc(m.event_id)}">${esc(m.event_title)}</option>`)
+    .join('');
+  sel.innerHTML = '<option value="">All events</option>' + opts;
+  if (current) sel.value = current;
+}
+
+function filterEventContacts() {
+  const eventId = document.getElementById('ecEventFilter').value;
+  const filtered = eventId ? allEventContacts.filter(m => m.event_id === eventId) : allEventContacts;
+  renderEventContacts(filtered);
+}
+
+function renderEventContacts(data) {
+  const tbody = document.getElementById('ecBody');
+  if (!data || data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#94a3b8;padding:32px">No event contact messages yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = data.map(m => {
+    const d = new Date(m.created_at).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+    return `<tr>
+      <td style="white-space:nowrap">${d}</td>
+      <td class="td-wrap" style="max-width:160px">${esc(m.event_title || '—')}</td>
+      <td>${esc(m.name || '—')}</td>
+      <td style="color:#0073b7">${esc(m.email || '—')}</td>
+      <td>${esc(m.phone) || '—'}</td>
+      <td>${esc(m.organisation) || '—'}</td>
+      <td class="td-wrap" style="max-width:220px;white-space:normal">${esc(m.message || '—')}</td>
+    </tr>`;
+  }).join('');
 }
 
 // ════════════════════════════════════════════════
