@@ -1,5 +1,6 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/acmblrindia/public_html/
-    - /bin/cp -R $SRCDIR/* $DEPLOYPATH
+    - export DEPLOYPATH=/home/acmblrindia/public_html
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/cp -Rf $SRCDIR/. $DEPLOYPATH
